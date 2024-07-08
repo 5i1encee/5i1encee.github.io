@@ -38,6 +38,13 @@
 
   
   <url>
+    <loc>http://5i1encee.top/tags/I-m/</loc>
+    <lastmod>2024-07-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://5i1encee.top/tags/CTF/</loc>
     <lastmod>2024-07-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -65,24 +72,17 @@
     <priority>0.2</priority>
   </url>
   
-  <url>
-    <loc>http://5i1encee.top/tags/I-m/</loc>
-    <lastmod>2024-07-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
 
   
   <url>
-    <loc>http://5i1encee.top/categories/CTF/</loc>
+    <loc>http://5i1encee.top/categories/others/</loc>
     <lastmod>2024-07-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://5i1encee.top/categories/others/</loc>
+    <loc>http://5i1encee.top/categories/CTF/</loc>
     <lastmod>2024-07-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
