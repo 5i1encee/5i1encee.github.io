@@ -13,6 +13,8 @@ index_img: /img/Hgame2024/HGAME.jpg
 banner_img: /img/Hgame2024/HGAMEs.jpg
 ---
 
+#Hgame2024 WP
+
 # Week1
 
 ## web
