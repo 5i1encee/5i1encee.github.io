@@ -7,13 +7,14 @@ tag:
 - web
 - misc
 - reverse
+- WriteUp
 date: 2024-07-03 20:24:13
 excerpt: 拖了好久没整理上来的wp......
 index_img: /img/Hgame2024/HGAME.jpg
 banner_img: /img/Hgame2024/HGAMEs.jpg
 ---
 
-#Hgame2024 WP
+# Hgame2024 WP
 
 # Week1
 
