@@ -1,0 +1,790 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/myavatar.jpg">
+  <link rel="icon" href="/img/myavatar.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="5i1encee">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="“不务正业”一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小米 AX3000T 刷机 openwrt 小记">
+<meta property="og:url" content="http://5i1encee.top/2025/04/21/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/index.html">
+<meta property="og:site_name" content="5i1encee&#39;s Blog">
+<meta property="og:description" content="“不务正业”一下">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://5i1encee.top/img/wallhaven-yq7gox.jpg">
+<meta property="article:published_time" content="2025-04-21T15:50:11.000Z">
+<meta property="article:modified_time" content="2025-04-27T08:37:21.847Z">
+<meta property="article:author" content="5i1encee">
+<meta property="article:tag" content="计网">
+<meta property="article:tag" content="openwrt">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://5i1encee.top/img/wallhaven-yq7gox.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>小米 AX3000T 刷机 openwrt 小记 - 5i1encee&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"5i1encee.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>5i1encee</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/wallhaven-yq7gox.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="小米 AX3000T 刷机 openwrt 小记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        5i1encee
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-21 23:50" pubdate>
+          2025年4月21日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">小米 AX3000T 刷机 openwrt 小记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="小米-AX3000T-刷机-openwrt-小记"><a href="#小米-AX3000T-刷机-openwrt-小记" class="headerlink" title="小米 AX3000T 刷机 openwrt 小记"></a>小米 AX3000T 刷机 openwrt 小记</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这两天在思考如何在寝室局域网之外远程连接寝室设备，以满足我有时候出门不方便带电脑想要用手机远程连接电脑操作的需求。我选定的是 sunshine+moonlight 串流方案，然而该方案本身并不支持远程连接，只适用于局域网连接，所以我需要通过内网穿透或 VPN 构建虚拟局域网来让我的电脑和手机设备处于同一个局域网环境内。先尝试了云服务器之前搭建好的 openVPN 服务，发现限于带宽和性能，连接质量并不理想，于是我想尝试在寝室路由器上使用 wireguard 构建隧道实现内网穿透。</p>
+<p>好了，不管怎么说，原厂的可操作性太差了，先刷个 openwrt 耍耍 0v0</p>
+<h1 id="设备型号"><a href="#设备型号" class="headerlink" title="设备型号"></a>设备型号</h1><p>路由器型号：小米 AX3000T</p>
+<p>系统 ROM 版本：1.0.98？（好像是 9 几，忘了）</p>
+<h1 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h1><h2 id="启用-SSH"><a href="#启用-SSH" class="headerlink" title="启用 SSH"></a>启用 SSH</h2><h3 id="固件降级"><a href="#固件降级" class="headerlink" title="固件降级"></a>固件降级</h3><p>为了能够通过 ssh 连接路由器设备控制并操作，需要先降低 ROM 版本换成易于攻击的 1.0.47 版本，从而启用 ssh。</p>
+<p>1.0.47 固件链接：<a target="_blank" rel="noopener" href="https://cdn.cnbj1.fds.api.mi-img.com/xiaoqiang/rom/rd03/miwifi_rd03_firmware_ef0ee_1.0.47.bin">小米官方 CDN</a></p>
+<p>小米官方刷机工具：<a target="_blank" rel="noopener" href="https://www1.miwifi.com/miwifi_download.html">https://www1.miwifi.com/miwifi_download.html</a></p>
+<p>下载编译好的固件后先打开刷机工具，用网线连接电脑和路由器 lan 口，选择要上传的文件的路径，点击下一步</p>
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/JsDKbvdoVomz1bxsbYscOWv4nab.png" srcset="/img/loading.gif" lazyload></p>
+<p>选择网卡，需要区分 VMware 设备的虚拟网卡等其他网卡，必要的时候可以暂时禁用其他网卡，必须选择物理网卡，一般名称带有“以太网”。而后点击下一步</p>
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/MSVEbD2NHoTV7ExS90EcsFZVnpb.png" srcset="/img/loading.gif" lazyload></p>
+<p>根据提示先给路由器断电，找一根卡针或者牙签按住路由器上的 reset 键，然后接通电源，等到橙色灯闪烁之后再松开 reset 键。一开始下方会出现“可以开始刷机操作”的提示，路由器橙色灯闪烁，然后路由器发送请求，电脑返回文件，工具自动刷入 ROM，完成之后变蓝灯闪烁，刷机成功，断电重启路由器。</p>
+<p>我遇到的问题是路由器的请求迟迟没有出现，指示灯一直在橙灯长亮、橙灯闪烁之间循环，后来发现需要先暂时关闭 windows 的防火墙，否则电脑不会接收路由器的请求。</p>
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/BcSQb7k5So2YtSx0i04cCuH4nrc.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="修改路由器配置启用-ssh"><a href="#修改路由器配置启用-ssh" class="headerlink" title="修改路由器配置启用 ssh"></a>修改路由器配置启用 ssh</h3><p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/Zxk4bIl24oM7mJx1XA1c0zKBnye.png" srcset="/img/loading.gif" lazyload></p>
+<p>需使用 cmd 依次执行以下命令，<code>&lt;stok&gt;</code> 处填入访问路由器管理页面的 <code>stok</code> 字段内容，使用 PowerShell 解析参数错误会报错。每次都要返回 <code>&#123;&quot;code&quot;:0&#125;</code> 才算成功。</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs perl">curl -X POST http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">31.1</span>/cgi-bin/luci/;stok=&lt;stok&gt;<span class="hljs-regexp">/api/mis</span>ystem/arn_switch -d <span class="hljs-string">&quot;open=1&amp;model=1&amp;level=%0Anvram%20set%20ssh_en%3D1%0A&quot;</span><br>curl -X POST http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">31.1</span>/cgi-bin/luci/;stok=&lt;stok&gt;<span class="hljs-regexp">/api/mis</span>ystem/arn_switch -d <span class="hljs-string">&quot;open=1&amp;model=1&amp;level=%0Anvram%20commit%0A&quot;</span><br>curl -X POST http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">31.1</span>/cgi-bin/luci/;stok=&lt;stok&gt;<span class="hljs-regexp">/api/mis</span>ystem/arn_switch -d <span class="hljs-string">&quot;open=1&amp;model=1&amp;level=%0Ased%20-i%20&#x27;s%2Fchannel%3D.*%2Fchannel%3D%22debug%22%2Fg&#x27;%20%2Fetc%2Finit.d%2Fdropbear%0A&quot;</span><br>curl -X POST http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">31.1</span>/cgi-bin/luci/;stok=&lt;stok&gt;<span class="hljs-regexp">/api/mis</span>ystem/arn_switch -d <span class="hljs-string">&quot;open=1&amp;model=1&amp;level=%0A%2Fetc%2Finit.d%2Fdropbear%20start%0A&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="ssh-登入"><a href="#ssh-登入" class="headerlink" title="ssh 登入"></a>ssh 登入</h3><p>而后尝试直接 ssh 登录，报错，需要用 ssh-rsa 协商</p>
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/VuDJbZgDfosQQOxjhBhcfWZenqb.png" srcset="/img/loading.gif" lazyload></p>
+<p>改用如下命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ssh -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa root@192.168.31.1<br></code></pre></td></tr></table></figure>
+
+<p>登录密码需要用路由管理界面 SN 的全部内容放到 <a target="_blank" rel="noopener" href="https://miwifi.dev/ssh">https://miwifi.dev/ssh</a> 处理获取，注意 Ctrl+v 无法使用，右键粘贴</p>
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/WqFGbsLi1oqKktxWV99cESHVnOh.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/MsNabZPz6o2VSSx54wecGYHnnDe.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="刷入-U-Boot"><a href="#刷入-U-Boot" class="headerlink" title="刷入 U-Boot"></a>刷入 U-Boot</h2><p>U-Boot 全称 Universal Boot Loader，是一个开源的引导加载程序，广泛应用于嵌入式系统中。它的主要作用是在系统启动时初始化硬件设备，建立内存空间的映射图，加载操作系统内核到内存中并执行，为操作系统的启动提供必要的准备。</p>
+<h3 id="备份原固件"><a href="#备份原固件" class="headerlink" title="备份原固件"></a>备份原固件</h3><p>为了避免后续出现意外导致难以修复，先备份固件以防万一。<code>cat /proc/mtd</code> 查看所有分区</p>
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/OKGzbOTXsoNZllxPVNMc3lMrnpc.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后使用如下命令依次打包 1~12 共 12 个分区</p>
+<div class="note note-warning">
+            <p><strong>注意：</strong></p><p>请不要偷懒想要一次性完成下面所有操作，由于路由器的 ROM 通常较小，一次性大量的备份操作会让 ROM “爆掉”，最好每一个都单独备份，且备份完成后就下载并删除。这是来自 zkz098 的提醒。</p><p>其中 mtd0 似乎是众多分区的汇总，无需重复备份，而我在好奇心的驱使下尝试在完成其他所有分区的备份后对其进行备份，导致路由器崩溃重启……</p><p>那么上述问题一般而言的应对方法是：重启路由器后重复“修改路由器配置启用 ssh”到“ssh 登录”步骤</p>
+          </div>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/mtd1 of=/tmp/BL2.bin<br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/mtd2 of=/tmp/Nvram.bin<br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/mtd3 of=/tmp/Bdate.bin<br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/mtd4 of=/tmp/Factory.bin<br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/mtd5 of=/tmp/FIP.bin<br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/mtd6 of=/tmp/crash.bin<br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/mtd7 of=/tmp/crash_log.bin<br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/mtd8 of=/tmp/ubi.bin<br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/mtd9 of=/tmp/ubi1.bin<br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/mtd10 of=/tmp/overlay.bin<br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/mtd11 of=/tmp/date.bin<br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/mtd12 of=/tmp/KF.bin<br></code></pre></td></tr></table></figure>
+
+<p>单句执行效果如下</p>
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/VIsgbXhqlogbaNxWxO1cX18snUg.png" srcset="/img/loading.gif" lazyload></p>
+<p>随后将打包好的 bin 文件传回电脑保存，路由器原本自带 netcat 但功能不完整，不好用，所以为了方便起见使用 WinSCP 对文件进行传输管理。</p>
+<p>使用 WinSCP 建立连接，注意协议需选择 SCP，其他无法连接，密码即之前获取的密码。</p>
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/Zba8brDVDoiCuzxNqlDcO0r7nEg.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/WfW4bONy7oDyaJxmsR1ctn3ynls.png" srcset="/img/loading.gif" lazyload></p>
+<p>而后发生的就是我把路由器玩崩了，重新 ssh 登录时提示 SHA256 认证信息改变，该设备不受信任</p>
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/WhJVb6SmTob9WwxVvwPcJfQ2nxe.png" srcset="/img/loading.gif" lazyload></p>
+<p>这是因为之前连接的时候保存了指纹信息，现在对不上了，用 <code>ssh-keygen -R 192.168.31.1</code> 清除原本保存着的 192.168.31.1 相关指纹即可。</p>
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/HqXBbUnoJoOF9TxGUVccZA5Mntb.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="刷入-U-Boot-固件"><a href="#刷入-U-Boot-固件" class="headerlink" title="刷入 U-Boot 固件"></a>刷入 U-Boot 固件</h3><p><strong>确保备份完成后</strong>，用 WinSCP 把固件文件传输到路由器上，执行以下命令将固件写入 FIP 分区</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mtd write mt7981_ax3000t-fip-fixed-parts-multi-layout.bin FIP<br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/V71ubshtDoNGQAxpnBBc4DvFnbf.png" srcset="/img/loading.gif" lazyload></p>
+<p>这步结束即完成了 U-Boot 固件的刷入</p>
+<h2 id="刷入-openwrt"><a href="#刷入-openwrt" class="headerlink" title="刷入 openwrt"></a>刷入 openwrt</h2><p>接下来要用 U-Boot 加载 openwrt 的固件刷入</p>
+<h3 id="配置网络连接"><a href="#配置网络连接" class="headerlink" title="配置网络连接"></a>配置网络连接</h3><p>目前网线仍然连接着电脑与路由器，由于 uboot 不具备 DHCP 能力，所以需要手动配置一下网卡来访问 uboot 的界面</p>
+<p>将 IP 分配模式设为手动，选一个不会冲突的 IPv4 地址，掩码、网关如下，DNS 服务器选择国内能用的且不建议加密</p>
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/GYCPbgH4VoFirSxHqgec5zzOnsc.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="刷入-openwrt-固件"><a href="#刷入-openwrt-固件" class="headerlink" title="刷入 openwrt 固件"></a>刷入 openwrt 固件</h3><p>访问 192.168.1.1 的 U-Boot 页面，选择要上传的本地的 openwrt 固件，并选择相应的 <code>mtd layout</code>（QWRT 选 QWRT，immortalwrt 选 immortalwrt-w112，这里我选择的固件是 QWRT），而后点击 Upload。</p>
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/EATQbRa6HokI28xlenxctdQanPd.png" srcset="/img/loading.gif" lazyload></p>
+<p>上传完成后再点击 Update，在这个过程中路由器会变为橙灯，随后橙灯快速闪烁，再变为蓝灯，此时刷入成功。</p>
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/G8bsbfzEgoUhXlxL4XQcBAVgnDg.png" srcset="/img/loading.gif" lazyload></p>
+<p>如果观察到路由器的橙灯慢速闪烁 (约 5 秒一次)，此时请等待半分钟，如果仍然保持此状态，可以按照前文重新进入 UBoot 了。这个闪烁意味着固件刷入失败，UBoot 会提示 UPDATE FAILED，建议更换固件并选择正确的 mtd layout 后重试</p>
+<h2 id="登录-openwrt"><a href="#登录-openwrt" class="headerlink" title="登录 openwrt"></a>登录 openwrt</h2><p>QWRT 的默认管理页面地址为 192.168.1.1，默认管理员账号密码 <code>root</code>、<code>password</code></p>
+<p><img src="/img/%E5%B0%8F%E7%B1%B3AX3000T%E5%88%B7%E6%9C%BAopenwrt%E5%B0%8F%E8%AE%B0/Sf8EbAJejoFXMXxsEANcuxDhn1W.png" srcset="/img/loading.gif" lazyload></p>
+<p>完成，帅~</p>
+<h1 id="如何刷回原厂？"><a href="#如何刷回原厂？" class="headerlink" title="如何刷回原厂？"></a>如何刷回原厂？</h1><p>来自 zkz098 的实践经验：</p>
+<blockquote>
+<p>先恢复原厂 UBoot 后使用小米救砖工具刷入固件<br>找到前文的备份文件中的 <code>FIP.bin</code> ，使用 SSH 工具上传到 &#x2F;tmp 目录下，随后：<code>mtd write FIP.bin FIP</code> 等待命令完成 (15-30 秒左右) 后断电重启，此时按照前文的降级方法刷入原厂 1.0.47 固件 (可能需要多次刷入)<br>如果刷入成功，橙灯会常亮一会，然后橙灯闪烁，此时可以按照正常新路由器的方法，连接到无密码默认 SSID 中进入开始使用</p>
+</blockquote>
+<h1 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h1><p>zkz098 的文章，所需固件可以从下方文章中获取，或者网上寻找，或者自行编译，这篇是主要参考，很详细：</p>
+<p><a target="_blank" rel="noopener" href="https://www.kaitaku.xyz/misc/ax3000t-openwrt/">https://www.kaitaku.xyz/misc/ax3000t-openwrt/</a></p>
+<p>固件降级示范：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1jZ421875V/?vd_source=ae44e9df2e6bb265e83888153930e885">https://www.bilibili.com/video/BV1jZ421875V/?vd_source&#x3D;ae44e9df2e6bb265e83888153930e885</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Note-Summary/" class="category-chain-item">Note&amp;Summary</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AE%A1%E7%BD%91/" class="print-no-link">#计网</a>
+      
+        <a href="/tags/openwrt/" class="print-no-link">#openwrt</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>小米 AX3000T 刷机 openwrt 小记</div>
+      <div>http://5i1encee.top/2025/04/21/小米AX3000T刷机openwrt小记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>5i1encee</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年4月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/04/14/fastjson+jndi%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E5%8F%8AHgameFinal%E6%9F%90%E9%A2%98%E5%A4%8D%E7%8E%B0/" title="fastjson+jndi 漏洞复现及 HgameFinal 某题复现">
+                        <span class="hidden-mobile">fastjson+jndi 漏洞复现及 HgameFinal 某题复现</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"sYa0TwEtqgwqBctM2qchGbMG-gzGzoHsz","appKey":"Et6unsKpmF1YFlS3U5IE9nlB","path":"window.location.pathname","placeholder":"请友好交流哦~","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":true,"recordIP":false,"serverURLs":"https://sya0twet.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":true},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <footer class="mt-4"> <font size="2" face="Georgia"> <div class="text-center py-3"> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
