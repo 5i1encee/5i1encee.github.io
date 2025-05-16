@@ -16,26 +16,26 @@
   <meta name="author" content="5i1encee">
   <meta name="keywords" content="">
   
-    <meta name="description" content="CBCTF的简要wp......">
+    <meta name="description" content="未完待续...">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CBCTF2024 WP">
-<meta property="og:url" content="http://5i1encee.top/2025/01/24/CBCTF2024/index.html">
+<meta property="og:title" content="Mini L-CTF">
+<meta property="og:url" content="http://5i1encee.top/2025/05/15/Mini%20L-CTF/index.html">
 <meta property="og:site_name" content="5i1encee&#39;s Blog">
-<meta property="og:description" content="CBCTF的简要wp......">
+<meta property="og:description" content="未完待续...">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://5i1encee.top/img/CBCTF2024/banner.png">
-<meta property="article:published_time" content="2025-01-24T05:14:53.000Z">
-<meta property="article:modified_time" content="2025-02-01T11:31:12.898Z">
+<meta property="og:image" content="http://5i1encee.top/img/miniLCTF2025/miniLCTF2025.png">
+<meta property="article:published_time" content="2025-05-15T15:58:52.000Z">
+<meta property="article:modified_time" content="2025-05-16T17:07:08.925Z">
 <meta property="article:author" content="5i1encee">
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="web">
 <meta property="article:tag" content="WriteUp">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://5i1encee.top/img/CBCTF2024/banner.png">
+<meta name="twitter:image" content="http://5i1encee.top/img/miniLCTF2025/miniLCTF2025.png">
   
   
   
-  <title>CBCTF2024 WP - 5i1encee&#39;s Blog</title>
+  <title>Mini L-CTF - 5i1encee&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -224,13 +224,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/CBCTF2024/banner.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/miniLCTF2025/miniLCTF2025.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CBCTF2024 WP"></span>
+            <span id="subtitle" data-typed-text="Mini L-CTF"></span>
           
         </div>
 
@@ -246,8 +246,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-01-24 13:14" pubdate>
-          2025年1月24日 下午
+        <time datetime="2025-05-15 23:58" pubdate>
+          2025年5月15日 晚上
         </time>
       </span>
     
@@ -258,7 +258,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          435 字
+          285 字
         
       </span>
     
@@ -269,7 +269,7 @@
         
         
         
-          5 分钟
+          3 分钟
         
       </span>
     
@@ -314,29 +314,26 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CBCTF2024 WP</h1>
+            <h1 id="seo-header">Mini L-CTF</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="CBCTF2024-WP"><a href="#CBCTF2024-WP" class="headerlink" title="CBCTF2024 WP"></a>CBCTF2024 WP</h1><h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="1-SignIn"><a href="#1-SignIn" class="headerlink" title="1.SignIn"></a>1.SignIn</h2><p><img src="/img/CBCTF2024/1.png" srcset="/img/loading.gif" lazyload></p>
-<p>主要是 get 传参 a、b，参数本身的值不等，md5 的结果强比较相等，结合提示的置顶帖子即可。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">?<span class="hljs-attribute">a</span>=TEXTCOLLBYfGiJUETHQ4hAcKSMd5zYpgqf1YRDhkmxHkhPWptrkoyz28wnI9V0aHeAuaKnak<br>&amp;<span class="hljs-attribute">b</span>=TEXTCOLLBYfGiJUETHQ4hEcKSMd5zYpgqf1YRDhkmxHkhPWptrkoyz28wnI9V0aHeAuaKnak<br></code></pre></td></tr></table></figure>
+                <h1 id="Mini-L-CTF"><a href="#Mini-L-CTF" class="headerlink" title="Mini L-CTF"></a>Mini L-CTF</h1><h1 id="Clickclick"><a href="#Clickclick" class="headerlink" title="Clickclick"></a>Clickclick</h1><p>这题考点是 js 的原型链污染，之前没怎么接触过记录一下。</p>
+<p>题目描述点击 10000 次出现不一样的东西，打开抓包多次点击发现每 50 次发一次包如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;set&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;point&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;amount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">50</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
 
-<p>得到答案。</p>
-<h2 id="2-Notes-1"><a href="#2-Notes-1" class="headerlink" title="2.Notes 1"></a>2.Notes 1</h2><p>一开始以为是路径穿越的题。</p>
-<p>URL 尝试 <code>/notes_read.php?file=note3.txt</code> 时发现返回 <code>Error: File not found : /var/www/html/note3.txt</code> 也就得知访问的根目录在 <code>/var/www/html/</code>，通过 <code>/notes_read.php?file=...</code></p>
-<p>传参读取该目录下的文件，因此访问 URL <code>/notes_read.php?file=notes_read.php</code> 就可以看到 notes_read.php 的源码。</p>
-<p><img src="/img/CBCTF2024/2.png" srcset="/img/loading.gif" lazyload></p>
-<p>读完代码发现对于参数 <code>$file</code> 存在正则匹配，且实际读取文件的路径 <code>$filePath</code> 由 <code>$notes_directory</code> 和 <code>$file</code> 拼接而成，无法直接获取 <code>/flag</code>。而后发现 <code>extract()</code> 存在变量覆盖漏洞，所以传参 <code>/notes_read.php?file=flag&amp;notes_directory=/</code> 将变量 <code>$notes_directory</code> 的原内容覆盖，再拼接后即为&#x2F;flag 路径，读取到 flag。</p>
-<h2 id="3-Notes-2"><a href="#3-Notes-2" class="headerlink" title="3.Notes 2"></a>3.Notes 2</h2><p>未完成</p>
-<p>已有思路是反序列化后 <code>_0rays</code> 类下的 <code>__wakeup()</code> 先自动调用，而后 <code>__toString()</code>，<code>__set($a, $b)</code>，<code>__get($c)</code>，<code>__invoke()</code>，<code>__construct($filepath)</code>，最终 <code>readfile($filepath);</code> 获取 flag</p>
-<p>但是实践起来还不熟练，没有做完。</p>
-<p><img src="/img/CBCTF2024/3.png" srcset="/img/loading.gif" lazyload></p>
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><h2 id="阳光长跑"><a href="#阳光长跑" class="headerlink" title="阳光长跑"></a>阳光长跑</h2><p>补做了阳光长跑一题，主要考点是前后端的通信交互，用BP抓包发现开始跑步后浏览器向后端发送位置（经纬度）信息，推测后端根据位置信息的变化距离判断跑步长度，跑步时长由后端计算后返回，不受前端影响。</p>
-<p>所以通过BP改变位置信息使距离达到要求然后再等时长到达合适的时间即可。</p>
-<h2 id="Notes-2"><a href="#Notes-2" class="headerlink" title="Notes 2"></a>Notes 2</h2><p>该题为基础 PHP 反序列化，思路同上所述，具体参考我的另一篇博文<a href="https://5i1encee.top/2025/02/01/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%B0%8F%E7%BB%93">PHP反序列化小结</a></p>
-<p><a target="_blank" rel="noopener" href="https://0rays-club.feishu.cn/wiki/SoYjwHDSGixa12kk1RYcKQHKnpd">官方WP</a></p>
+<p>修改 amount 值尝试 1000、10000 等参数，发现到达 1000 后均返回“你按的太快了！”</p>
+<p>审计一下前端代码或者使用如下代码在控制台运行即可看到点击 10000 次的提示</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json">but = document.querySelector(<span class="hljs-string">&quot;#app &gt; main &gt; div &gt; button&quot;</span>)<br>for (var i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10000</span>; i++) <span class="hljs-punctuation">&#123;</span><br>    but.click();<br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/miniLCTF2025/I142bjCa8ofO3dx3KKpcGgwHnDe.png" srcset="/img/loading.gif" lazyload></p>
+<p>if ( req.body.point.amount &#x3D;&#x3D; 0 || req.body.point.amount &#x3D;&#x3D; null) { delete req.body.point.amount }</p>
+<p>也就是说当传递的 amount 参数为 0 时会直接删除，结合后端语言为 JavaScript 所以考虑原型链污染，使用 payload 如下，删除后污染原型</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;set&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;point&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;amount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;__proto__&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;amount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10000</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="ezCC"><a href="#ezCC" class="headerlink" title="ezCC"></a>ezCC</h1><p>暂时没时间了，标记一下后续学习整理更新</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/XDSEC/miniLCTF_2025/blob/main/OfficialWriteups/Web/ezCC_Official.pdf">https://github.com/XDSEC/miniLCTF_2025&#x2F;blob&#x2F;main&#x2F;OfficialWriteups&#x2F;Web&#x2F;ezCC_Official.pdf</a></p>
 
                 
               </div>
@@ -386,8 +383,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CBCTF2024 WP</div>
-      <div>http://5i1encee.top/2025/01/24/CBCTF2024/</div>
+      <div>Mini L-CTF</div>
+      <div>http://5i1encee.top/2025/05/15/Mini L-CTF/</div>
     </div>
     <div class="license-meta">
       
@@ -399,7 +396,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年1月24日</div>
+          <div>2025年5月15日</div>
         </div>
       
       
@@ -431,18 +428,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/02/01/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%B0%8F%E7%BB%93/" title="PHP反序列化小结">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">PHP反序列化小结</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/09/07/SQL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="SQL 学习笔记">
-                        <span class="hidden-mobile">SQL 学习笔记</span>
+                      <a href="/2025/05/15/ACTF2025/" title="ACTF2025">
+                        <span class="hidden-mobile">ACTF2025</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
