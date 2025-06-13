@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://5i1encee.top/img/wallhaven-yq7gox.jpg">
 <meta property="article:published_time" content="2025-05-08T05:34:23.000Z">
-<meta property="article:modified_time" content="2025-05-12T12:29:03.631Z">
+<meta property="article:modified_time" content="2025-06-13T08:49:59.437Z">
 <meta property="article:author" content="5i1encee">
 <meta property="article:tag" content="计网">
 <meta property="article:tag" content="openwrt">
@@ -281,7 +281,7 @@
         
         
         
-          41 分钟
+          42 分钟
         
       </span>
     
@@ -332,8 +332,8 @@
               <div class="markdown-body">
                 
                 <h1 id="校园网环境内的远程设备连接尝试"><a href="#校园网环境内的远程设备连接尝试" class="headerlink" title="校园网环境内的远程设备连接尝试"></a>校园网环境内的远程设备连接尝试</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这两天在思考如何在寝室局域网之外远程连接寝室设备，以满足我有时候出门不方便带电脑想要用手机远程连接电脑操作的需求。我选定的是 sunshine+moonlight 串流方案，然而该方案本身并不支持远程连接，只适用于局域网连接，所以我需要通过内网穿透获取电脑网络服务或使用 VPN <del>构建虚拟局域网来</del>让我的电脑和手机设备处于同一个局域网环境内。</p>
-<h1 id="openVPN"><a href="#openVPN" class="headerlink" title="openVPN"></a>openVPN</h1><p>由于 hdu 在去年进入了大内网时代（可恶(〃＞ 皿 ＜)），生活区的网络全部并入了校园网，由学校分配动态内网 ip。所以即便我手头有一个域名我也没法通过 DDNS 直接低成本方便地实现对寝室局域网的访问。</p>
-<p>我手上刚好还有一个云服务器，之前作为护网的跳板机又刚好搭过 openVPN 的服务端，那么我想试着尝试通过 VPN 来让两个设备处于同一个<del>虚拟</del>局域网下。稍微修改配置文件，加上 client-to-client 允许客户端间通信，然后在两个设备上均使用 vpn 服务，成功连接！</p>
+<h1 id="openVPN"><a href="#openVPN" class="headerlink" title="openVPN"></a>openVPN</h1><p>由于 hdu 在去年进入了大内网时代（可恶(〃＞ 皿 ＜)），生活区的网络全部并入了校园网，由学校分配动态内网 ip。<del>所以即便我手头有一个域名我也没法通过 DDNS 直接低成本方便地实现对寝室局域网的访问。</del></p>
+<p>我手上刚好还有一个云服务器，之前作为测试用的跳板机又刚好搭过 openVPN 的服务端，那么我想试着尝试通过 VPN 来让两个设备处于同一个<del>虚拟</del>局域网下。稍微修改配置文件，加上 client-to-client 允许客户端间通信，然后在两个设备上均使用 vpn 服务，成功连接！</p>
 <p>然而效果一言难尽……</p>
 <p><img src="/img/%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%8E%AF%E5%A2%83%E5%86%85%E7%9A%84%E8%BF%9C%E7%A8%8B%E8%AE%BE%E5%A4%87%E8%BF%9E%E6%8E%A5%E5%B0%9D%E8%AF%95/YV7HbvxIjoBLDrxIjBBcVP8knhh.jpg" srcset="/img/loading.gif" lazyload></p>
 <p>或许是服务器配的带宽太低、又是远程连接导致连接质量不好，总之放弃了这个方法，觉得还是满足校园网内的连接需求即可。</p>
@@ -429,8 +429,8 @@
 <p>而非对称密码损失了一些加解密效率但解决了身份认证问题，私钥本地保存公钥向外发放，公钥加密私钥解密。</p>
 <p>在客户端与服务器通信的场景中，客户端保存私钥并将公钥传输给服务器，这样就确保了服务器发送的数据只有这个客户端能解密，即便公钥被他人获取。在数字签名的场景中，就是客户端保留公钥，向服务端发送私钥，那么就只有该客户端可以正确地加密内容并传输给服务器认证。</p>
 <p>那么在 WireGuard 隧道中就是节点 A 与节点 B 间各自保存自己的私钥和对方的公钥，确保 A 发出的数据只有 B 能解密，B 发出的数据只有 A 能解密从而确保安全性。</p>
-<h2 id="利用-DDNS-的改进"><a href="#利用-DDNS-的改进" class="headerlink" title="利用 DDNS 的改进"></a>利用 DDNS 的改进</h2><p>前面的实现的方案有一个不太方便的问题，就是 IP 是动态变化的（我尝试过设置静态 IP 但原本的租用期满后就无法正常上网了，看来只能接受学校的 DHCP，不过生活区某次断网后发现租期从三天变成了六天），隔段时间就要改一下手机端上 WireGuard 配置的对端 IP。于是我重新考虑 DDNS 到底能不能用（之前以为就是要公网 IP 的来着），发现至少阿里云的域名解析是可以解析成内网 IP 的，后续另起一篇看看能不能 DDNS 吧。</p>
-<h2 id="坏消息"><a href="#坏消息" class="headerlink" title="坏消息"></a>坏消息</h2><p>这个方案出现了问题，串流成功后过一会后连接会异常中断，后续再排查问题吧，另起一篇。累</p>
+<h2 id="利用-DDNS-的改进"><a href="#利用-DDNS-的改进" class="headerlink" title="利用 DDNS 的改进"></a>利用 DDNS 的改进</h2><p><del>前面的实现的方案有一个不太方便的问题，就是 IP 是动态变化的（我尝试过设置静态 IP 但原本的租用期满后就无法正常上网了，看来只能接受学校的 DHCP，不过生活区某次断网后发现租期从三天变成了六天），隔段时间就要改一下手机端上 WireGuard 配置的对端 IP。于是我重新考虑 DDNS 到底能不能用（之前以为就是要公网 IP 的来着），发现至少阿里云的域名解析是可以解析成内网 IP 的，后续另起一篇看看能不能 DDNS 吧。</del> 奇怪的是路由器配置早就改回DHCP了，但 IP 却已经固定为静态 IP 了。另外，域名可以直接解析为内网 IP ，DDNS 也完全可以用，但现在不需要了。</p>
+<h2 id="坏消息"><a href="#坏消息" class="headerlink" title="坏消息"></a>坏消息</h2><p>这个方案存在问题，串流成功后过一会后连接会异常中断，后续再排查问题吧，另起一篇。累</p>
 
                 
               </div>
