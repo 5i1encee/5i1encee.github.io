@@ -231,7 +231,7 @@ font:
 
 # 指定自定义 .js 文件路径，支持列表；路径是相对 source 目录，如 /js/custom.js 对应存放目录 source/js/custom.js
 # Specify the path of your custom js file, support list. The path is relative to the source directory, such as `/js/custom.js` corresponding to the directory `source/js/custom.js`
-custom_js:
+custom_js: /js/mouse_move.js
 
 # 指定自定义 .css 文件路径，用法和 custom_js 相同
 # The usage is the same as custom_js
@@ -345,8 +345,8 @@ navbar:
     - { key: "archive", link: "/archives/", icon: "iconfont icon-archive-fill" }
     - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
+    - { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
     - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
-    #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
 
 # 搜索功能，基于 hexo-generator-search 插件，若已安装其他搜索插件请关闭此功能，以避免生成多余的索引文件
 # Search feature, based on hexo-generator-search. If you have installed other search plugins, please disable this feature to avoid generating redundant index files
@@ -796,14 +796,14 @@ valine:
   appId: sYa0TwEtqgwqBctM2qchGbMG-gzGzoHsz
   appKey: Et6unsKpmF1YFlS3U5IE9nlB
   path: window.location.pathname
-  placeholder: 请友好交流哦~
+  placeholder: 请友好交流哦~ ☆:.٩(๑❛ᴗ❛๑)۶°*☆
   avatar: 'retro'
   meta: ['nick', 'mail', 'link']
   requiredFields: []
   pageSize: 10
   lang: 'zh-CN'
   highlight: true
-  recordIP: false
+  recordIP: true
   serverURLs: https://sya0twet.lc-cn-n1-shared.com
   emojiCDN:
   emojiMaps:
@@ -1010,27 +1010,39 @@ links:
   # Member item of page
   items:
     - {
-      title: "Fluid Blog",
-      intro: "主题博客",
-      link: "https://hexo.fluid-dev.com/",
-      avatar: "/img/favicon.png"
+      title: "z221x",
+      intro: "有趣的东北爷们re手！伟大的战队队长！",
+      link: "https://www.z221x.website/",
+      avatar: "/img/avatar/z221x.png"
     }
     - {
-      title: "Fluid Docs",
-      intro: "主题使用指南",
-      link: "https://hexo.fluid-dev.com/docs/",
-      avatar: "/img/favicon.png"
+      title: "withdong02",
+      intro: "还在努力开发中的董咚咚",
+      link: "https://withdong02.github.io/",
+      avatar: "/img/avatar/withdong02.jpg"
     }
     - {
-      title: "Fluid Repo",
-      intro: "主题 GitHub 仓库",
-      link: "https://github.com/fluid-dev/hexo-theme-fluid",
-      avatar: "/img/favicon.png"
+      title: "ek1ng",
+      intro: "是我的榜样学长！",
+      link: "https://ek1ng.com/",
+      avatar: "/img/avatar/ek1ng.jpg"
+    }
+    - {
+      title: "Tremse",
+      intro: "fumofumo",
+      link: "https://www.tremse.cn/",
+      avatar: "/img/avatar/Tremse.png"
+    }
+    - {
+      title: "Yim1ngs",
+      intro: "努力成为歪脖手子的歪脖苦手",
+      link: "https://Yim1ngs.github.io/",
+      avatar: "/img/avatar/Yim1ngs.png"
     }
 
   # 当成员头像加载失败时，替换为指定图片
   # When the member avatar fails to load, replace the specified image
-  onerror_avatar: /img/avatar.png
+  onerror_avatar: /img/avatar/avatar.png
 
   # 友链下方自定义区域，支持 HTML，可插入例如申请友链的文字
   # Custom content at the bottom of the links
